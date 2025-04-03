@@ -1,0 +1,16 @@
+{
+    "name": "xgerhard/wom-php",
+    "description": "PHP wrapper for the Wise Old Man API",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+      "psr-4": {
+        "WOM\\": "src/"
+      }
+    },
+    "require": {
+      "php": ">=8.0",
+      "guzzlehttp/guzzle": "^7.0"
+    }
+  }
+  
