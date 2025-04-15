@@ -1,6 +1,8 @@
 <?php
 
-namespace WOM\Models;
+namespace WOM\Models\Player;
+
+use WOM\Models\BaseModel;
 
 class Snapshot extends BaseModel
 {

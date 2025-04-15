@@ -2,19 +2,19 @@
 
 namespace WOM\Resources;
 
-use WOM\Models\Achievement;
-use WOM\Models\AchievementProgress;
-use WOM\Models\NameChange;
-use WOM\Models\Player;
-use WOM\Models\PlayerArchiveWithPlayer;
-use WOM\Models\PlayerCompetitionStanding;
-use WOM\Models\PlayerDetails;
-use WOM\Models\PlayerGains;
-use WOM\Models\PlayerMembership;
-use WOM\Models\PlayerParticipation;
-use WOM\Models\Record;
-use WOM\Models\Snapshot;
-use WOM\Models\TimelineDatapoint;
+use WOM\Models\Player\Achievement;
+use WOM\Models\Player\AchievementProgress;
+use WOM\Models\Player\NameChange;
+use WOM\Models\Player\Player;
+use WOM\Models\Player\PlayerArchiveWithPlayer;
+use WOM\Models\Player\PlayerCompetitionStanding;
+use WOM\Models\Player\PlayerDetails;
+use WOM\Models\Player\PlayerGains;
+use WOM\Models\Player\PlayerMembership;
+use WOM\Models\Player\PlayerParticipation;
+use WOM\Models\Player\Record;
+use WOM\Models\Player\Snapshot;
+use WOM\Models\Player\TimelineDatapoint;
 
 class Players extends BaseResource
 {

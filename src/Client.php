@@ -24,8 +24,7 @@ class Client
     {
         $map = [
             'players' => Resources\Players::class,
-            'groups' => Resources\Groups::class,
-            // Voeg hier je andere resources toe
+            'groups' => Resources\Groups::class
         ];
 
         if (!isset($map[$name])) {
