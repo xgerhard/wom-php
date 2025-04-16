@@ -6,7 +6,7 @@ $client = (new WOM\Client())
     ->setApiKey('--API-KEY-HERE--')
     ->setUserAgent('--USER-AGENT-HERE--');
 
-$player = $client->players->get('gerhardoh');
+$player = $client->players->get('zezima');
 
 echo $player->displayName;
 

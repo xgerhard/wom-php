@@ -8,9 +8,9 @@ final class PlayerTest extends TestCase
     public function testCanFetchPlayerDetails(): void
     {
         $client = new Client();
-        $player = $client->players->get('gerhardoh');
+        $player = $client->players->get('zezima');
 
         $this->assertNotNull($player);
-        $this->assertSame('gerhardoh', $player->displayName);
+        $this->assertSame('Zezima', $player->displayName);
     }
 }

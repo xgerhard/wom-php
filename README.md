@@ -15,7 +15,7 @@ composer require xgerhard/wom-php
 use WOM\Client;
 
 $client = new Client();
-$player = $client->players->get('gerhardoh');
+$player = $client->players->get('zezima');
 ```
 
 ## Documentation & Examples
