@@ -19,22 +19,28 @@ abstract class BaseResource
         return array_map(fn($item) => new $modelClass($item), $items);
     }
 
-    protected function request(string $method, string $uri, array $options = [])
+    protected function request(string $method, string $uri, array $options = [], $retryCount = 0)
     {
         try {
+            $this->client->rateLimiter->handle($retryCount);
+
             $response = $this->client->getHttpClient()->request($method, $uri, $options);
-            $x = json_decode((string) $response->getBody());
-            // Handle errors here.
-            //echo '<pre>';
-            //print_r($x);
-            return $x;
+            return json_decode((string) $response->getBody());
         } catch (RequestException $e) {
+
+            if ($e->getCode() === 429 && $retryCount < 3) {
+                return $this->request($method, $uri, $options, $retryCount + 1);
+            }
+
             $response = $e->getResponse();
-            return [
+            $x = [
                 'error' => $e->getMessage(),
                 'status' => $response ? $response->getStatusCode() : null,
                 'body' => $response ? (string) $response->getBody() : null,
             ];
+            echo '<pre>';
+            print_r($x);
+            die;
         }
     }
 }

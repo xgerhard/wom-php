@@ -5,7 +5,7 @@ namespace WOM;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Exception\RequestException;
-
+use WOM\Http\RateLimiter;
 
 class Client
 {
@@ -14,9 +14,11 @@ class Client
     protected ?string $apiKey = null;
     protected ?string $userAgent = null;
     protected array $resources = [];
+    public RateLimiter $rateLimiter;
 
     public function __construct()
     {
+        $this->rateLimiter = new RateLimiter(20, 60);
         $this->buildClient();
     }
 
@@ -41,6 +43,7 @@ class Client
     public function setApiKey(string $key): self
     {
         $this->apiKey = $key;
+        $this->rateLimiter = new RateLimiter(100, 60);
         return $this->buildClient();
     }
 
@@ -73,13 +76,14 @@ class Client
         $this->client = new GuzzleClient([
             'base_uri' => $this->baseUrl,
             'timeout' => 5.0,
+            'verify' => false,
             RequestOptions::HEADERS => $headers,
         ]);
 
         return $this;
     }
 
-    public function getHttpClient(): \GuzzleHttp\Client
+    public function getHttpClient(): GuzzleClient
     {
         return $this->client;
     }
