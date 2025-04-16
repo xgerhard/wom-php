@@ -31,7 +31,7 @@ See [`docs/examples.md`](docs/examples.md) for usage examples.
 | Competitions    | ❌ Not yet     |
 | Records         | ✅ Implemented |
 | Deltas          | ✅ Implemented |
-| Name Changes    | ❌ Not yet     |
+| Name Changes    | ✅ Implemented |
 | Efficiency      | ❌ Not yet     |
 
 ## Contributing

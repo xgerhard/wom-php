@@ -48,9 +48,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('POST', 'players/' . urlencode($username) . '/assert-type', [
-            'json' => []
-        ]);
+        $response = $this->request('POST', 'players/' . urlencode($username) . '/assert-type');
 
         return new Player($response);
     }
