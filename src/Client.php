@@ -26,7 +26,8 @@ class Client
     {
         $map = [
             'players' => Resources\Players::class,
-            'records' => Resources\Records::class
+            'records' => Resources\Records::class,
+            'deltas' => Resources\Deltas::class
         ];
 
         if (!isset($map[$name])) {

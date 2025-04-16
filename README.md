@@ -30,7 +30,7 @@ See [`docs/examples.md`](docs/examples.md) for usage examples.
 | Groups          | ❌ Not yet     |
 | Competitions    | ❌ Not yet     |
 | Records         | ✅ Implemented |
-| Deltas          | ❌ Not yet     |
+| Deltas          | ✅ Implemented |
 | Name Changes    | ❌ Not yet     |
 | Efficiency      | ❌ Not yet     |
 
