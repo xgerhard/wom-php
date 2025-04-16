@@ -4,7 +4,6 @@ namespace WOM\Resources;
 
 use WOM\Models\Player\Achievement;
 use WOM\Models\Player\AchievementProgress;
-use WOM\Models\Player\NameChange;
 use WOM\Models\Player\Player;
 use WOM\Models\Player\PlayerArchiveWithPlayer;
 use WOM\Models\Player\PlayerCompetitionStanding;
@@ -15,6 +14,7 @@ use WOM\Models\Player\PlayerParticipation;
 use WOM\Models\Player\Record;
 use WOM\Models\Player\Snapshot;
 use WOM\Models\Player\TimelineDatapoint;
+use WOM\Models\NameChange\NameChange;
 
 class Players extends BaseResource
 {
@@ -37,7 +37,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('PUT', 'players/' . urlencode($username));
+        $response = $this->request('POST', 'players/' . urlencode($username));
 
         return new PlayerDetails($response);
     }
@@ -141,7 +141,7 @@ class Players extends BaseResource
         return $this->mapToModels($response, PlayerMembership::class);
     }
 
-    public function getGains(string $username, array $params = []): array
+    public function getGains(string $username, array $params = []): PlayerGains
     {
         if (empty($username)) {
             throw new \InvalidArgumentException('Username is required.');
@@ -153,7 +153,7 @@ class Players extends BaseResource
             'query' => $params
         ]);
 
-        return $this->mapToModels($response, PlayerGains::class);
+        return new PlayerGains($response);
     }
 
     public function getRecords(string $username, array $params = []): array
@@ -230,12 +230,16 @@ class Players extends BaseResource
         $hasPeriod = isset($params['period']);
         $hasStart = isset($params['startDate']);
         $hasEnd = isset($params['endDate']);
-
+    
+        if (!$hasPeriod && !($hasStart && $hasEnd)) {
+            throw new \InvalidArgumentException('You must provide either "period" or both "startDate" and "endDate".');
+        }
+    
         if ($hasPeriod && ($hasStart || $hasEnd)) {
             throw new \InvalidArgumentException('Use either "period" or "startDate" and "endDate", not both.');
         }
-
-        if (($hasStart xor $hasEnd)) {
+    
+        if ($hasStart xor $hasEnd) {
             throw new \InvalidArgumentException('You must provide both "startDate" and "endDate" together.');
         }
     }
