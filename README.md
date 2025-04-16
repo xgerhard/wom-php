@@ -15,12 +15,6 @@ composer require xgerhard/wom-php
 
 See [`docs/examples.md`](docs/examples.md) for usage examples.
 
-Or run examples directly from the [`examples/`](examples/) folder:
-
-```bash
-php examples/player-overview.php
-```
-
 ## Supported Endpoints
 
 | Endpoint        | Status         |
