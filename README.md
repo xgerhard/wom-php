@@ -29,7 +29,7 @@ See [`docs/examples.md`](docs/examples.md) for usage examples.
 | Players         | ✅ Implemented |
 | Groups          | ❌ Not yet     |
 | Competitions    | ❌ Not yet     |
-| Records         | ❌ Not yet     |
+| Records         | ✅ Implemented |
 | Deltas          | ❌ Not yet     |
 | Name Changes    | ❌ Not yet     |
 | Efficiency      | ❌ Not yet     |
