@@ -4,7 +4,7 @@ namespace WOM\Enums\Player;
 
 use WOM\Enums\BaseEnum;
 
-class PlayerType extends BaseEnum
+class PlayerStatus extends BaseEnum
 {
     public const ACTIVE = 'active';
     public const UNRANKED = 'unranked';

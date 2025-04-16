@@ -4,7 +4,7 @@ namespace WOM\Enums\Player;
 
 use WOM\Enums\BaseEnum;
 
-class PlayerType extends BaseEnum
+class PlayerAnnotation extends BaseEnum
 {
     public const OPT_OUT = 'opt_out';
     public const BLOCKED = 'blocked';
