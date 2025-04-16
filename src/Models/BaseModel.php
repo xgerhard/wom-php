@@ -28,6 +28,11 @@ abstract class BaseModel
         $this->properties->{$name} = $value;
     }
 
+    public function __isset(string $name): bool
+    {
+        return isset($this->properties->{$name});
+    }
+
     protected function setAttributes($data): void
     {
         $this->properties = new \stdClass();
