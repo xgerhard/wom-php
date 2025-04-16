@@ -32,7 +32,7 @@ See [`docs/examples.md`](docs/examples.md) for usage examples.
 | Records         | ✅ Implemented |
 | Deltas          | ✅ Implemented |
 | Name Changes    | ✅ Implemented |
-| Efficiency      | ❌ Not yet     |
+| Efficiency      | ✅ Implemented |
 
 ## Contributing
 Feel free to explore, contribute, or play around with this wrapper.

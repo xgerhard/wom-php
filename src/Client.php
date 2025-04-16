@@ -28,7 +28,8 @@ class Client
             'players' => Resources\Players::class,
             'records' => Resources\Records::class,
             'deltas' => Resources\Deltas::class,
-            'namechanges' => Resources\NameChanges::class
+            'namechanges' => Resources\NameChanges::class,
+            'efficiency' => Resources\Efficiency::class
         ];
 
         if (!isset($map[$name])) {
