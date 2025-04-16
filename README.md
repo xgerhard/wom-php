@@ -3,8 +3,13 @@
 **wom-php** is a PHP wrapper for the [Wise Old Man API](https://docs.wiseoldman.net/).  
 Wise Old Man is an open source Old School RuneScape player progress tracker: [https://wiseoldman.net](https://wiseoldman.net).
 
+## Usage
+```bash
+composer require xgerhard/wom-php
+```
+
 ## Work in Progress
-⚠️This wrapper is actively being developed and is not yet available on Packagist or other package managers.
+⚠️ This package is still in early development (pre-1.0).
 
 ## Documentation & Examples
 
