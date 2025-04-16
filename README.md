@@ -7,7 +7,7 @@ Wise Old Man is an open source Old School RuneScape player progress tracker: [ht
 ⚠️ This package is still in early development (pre-1.0).
 
 ## Usage
-```bash
+```
 composer require xgerhard/wom-php
 ```
 
@@ -41,7 +41,9 @@ To set up a local development environment for the package, follow these steps:
 
 1. **Clone the repository:**
 
-`git clone https://github.com/xgerhard/wom-php.git`
+```
+git clone https://github.com/xgerhard/wom-php.git
+```
 
 2. **Create a new folder for your test project**, and add a `composer.json` file pointing to your local clone:
 
@@ -63,7 +65,9 @@ To set up a local development environment for the package, follow these steps:
 ```
 3. **Install the local package:**
 
-`composer require xgerhard/wom-php:dev-main`
+```
+composer require xgerhard/wom-php:dev-main
+```
 
 4. Your project will now use your local `wom-php` version and any changes you make will be reflected immediately.
 
