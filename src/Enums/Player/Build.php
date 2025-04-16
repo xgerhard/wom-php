@@ -4,7 +4,7 @@ namespace WOM\Enums\Player;
 
 use WOM\Enums\BaseEnum;
 
-class PlayerBuild extends BaseEnum
+class Build extends BaseEnum
 {
     public const MAIN = 'main';
     public const F2P = 'f2p';
