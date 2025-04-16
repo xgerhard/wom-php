@@ -70,8 +70,7 @@ abstract class BaseModel
             is_subclass_of($cast['type'], BaseModel::class)
         ) {
             $type = $cast['type'];
-    
-            if (!empty($cast['many']) && is_object($value)) {
+            if (!empty($cast['many']) && (is_object($value) || is_array($value))) {
                 $result = [];
                 foreach ($value as $key => $item) {
                     $result[$key] = new $type($item);
