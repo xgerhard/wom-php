@@ -6,6 +6,13 @@ use WOM\Models\Delta\LeaderboardEntry;
 
 class Deltas extends BaseResource
 {
+    /**
+     * Fetches the current top deltas leaderboard for a specific metric and period.
+     *
+     * @param array $params
+     * @return LeaderboardEntry[] Array of LeaderboardEntry models
+     * @see https://docs.wiseoldman.net/deltas-api/delta-endpoints#get-global-delta-leaderboards
+     */
     public function getGlobalLeaderboards(array $params = []): array
     {
         if (!isset($params['period'])) {

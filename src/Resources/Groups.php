@@ -3,7 +3,7 @@
 namespace WOM\Resources;
 
 use WOM\Models\Competition\Competition;
-use WOM\Models\Delta\DeltaLeaderboardEntry;
+use WOM\Models\Delta\LeaderboardEntry as DeltaLeaderboardEntry;
 use WOM\Models\Group\Group;
 use WOM\Models\Group\Activity;
 use WOM\Models\Group\Details;
@@ -11,11 +11,18 @@ use WOM\Models\Group\HiscoreEntry;
 use WOM\Models\Group\Statistics;
 use WOM\Models\NameChange\NameChange;
 use WOM\Models\Player\Achievement;
-use WOM\Models\Record\RecordLeaderboardEntry;
+use WOM\Models\Record\LeaderboardEntry as RecordLeaderboardEntry;
 use WOM\Enums\Group\Role;
 
 class Groups extends BaseResource
 {
+    /**
+     * Searches for groups that match a partial name.
+     *
+     * @param array $params
+     * @return Group[] Array of Group models
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#search-groups
+     */
     public function search(array $params = []): array
     {
         $response = $this->request('GET', 'groups', [
@@ -25,6 +32,13 @@ class Groups extends BaseResource
         return $this->mapToModels($response, Group::class);
     }
 
+    /**
+     * Fetches a group's details.
+     *
+     * @param integer $id
+     * @return Details
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-details
+     */
     public function get(int $id): Details
     {
         if (empty($id)) {
@@ -36,6 +50,13 @@ class Groups extends BaseResource
         return new Details($response);
     }
 
+    /**
+     * Creates a new group.
+     *
+     * @param array $params
+     * @return Details
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#create-group
+     */
     public function create(array $params = []): Details
     {
         if (!isset($params['name'])) {
@@ -53,6 +74,14 @@ class Groups extends BaseResource
         return new Details($response);
     }
 
+    /**
+     * Edit an existing group.
+     *
+     * @param integer $id
+     * @param array $params
+     * @return Details
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#edit-group
+     */
     public function edit(int $id, array $params = []): Details
     {
         if (empty($id)) {
@@ -70,6 +99,14 @@ class Groups extends BaseResource
         return new Details($response);
     }
 
+    /**
+     * Delete an existing group.
+     *
+     * @param integer $id
+     * @param string $verificationCode
+     * @return void
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#delete-group
+     */
     public function delete(int $id, string $verificationCode)
     {
         if (empty($id)) {
@@ -87,6 +124,14 @@ class Groups extends BaseResource
         return $response;
     }
 
+    /**
+     * Add members to an existing group.
+     *
+     * @param integer $id
+     * @param array $params
+     * @return void
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#add-members
+     */
     public function addMembers(int $id, array $params = [])
     {
         if (empty($id)) {
@@ -108,6 +153,14 @@ class Groups extends BaseResource
         return $response;
     }
 
+    /**
+     * Remove members from an existing group.
+     *
+     * @param integer $id
+     * @param array $params
+     * @return void
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#remove-members
+     */
     public function removeMembers(int $id, array $params = [])
     {
         if (empty($id)) {
@@ -129,6 +182,14 @@ class Groups extends BaseResource
         return $response;
     }
 
+    /**
+     * Changes the role of an existing group member.
+     *
+     * @param integer $id
+     * @param array $params
+     * @return void
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#change-member-role
+     */
     public function changeRole(int $id, array $params = [])
     {
         if (empty($id)) {
@@ -158,6 +219,14 @@ class Groups extends BaseResource
         return $response;
     }
 
+    /**
+     * Attempts to update any outdated group members.
+     *
+     * @param integer $id
+     * @param string $verificationCode
+     * @return void
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#update-all-outdated-members
+     */
     public function updateAll(int $id, string $verificationCode)
     {
         if (empty($id)) {
@@ -177,6 +246,14 @@ class Groups extends BaseResource
         return $response;
     }
 
+    /**
+     * Fetches all of the group's competitions.
+     *
+     * @param integer $id
+     * @param array $params
+     * @return Competition[] Array of Competition models
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-competitions
+     */
     public function getCompetitions(int $id, array $params = []): array
     {
         if (empty($id)) {
@@ -190,6 +267,14 @@ class Groups extends BaseResource
         return $this->mapToModels($response, Competition::class);
     }
 
+    /**
+     * Fetches the top gains for a group's member list (filtered by metric and period/date range).
+     *
+     * @param integer $id
+     * @param array $params
+     * @return DeltaLeaderboardEntry[] Array of LeaderboardEntry models
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-gains
+     */
     public function getGains(int $id, array $params = []): array
     {
         if (empty($id)) {
@@ -209,6 +294,14 @@ class Groups extends BaseResource
         return $this->mapToModels($response, DeltaLeaderboardEntry::class);
     }
 
+    /**
+     * Fetches the group's latest achievements.
+     *
+     * @param integer $id
+     * @param array $params
+     * @return Achievement[] Array of Achievement models
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-achievements
+     */
     public function getAchievements(int $id, array $params = []): array
     {
         if (empty($id)) {
@@ -222,6 +315,14 @@ class Groups extends BaseResource
         return $this->mapToModels($response, Achievement::class);
     }
 
+    /**
+     * Fetches a group's record leaderboard for a specific metric and period.
+     *
+     * @param integer $id
+     * @param array $params
+     * @return RecordLeaderboardEntry[] Array of LeaderboardEntry models
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-records
+     */
     public function getRecords(int $id, array $params = []): array
     {
         if (empty($id)) {
@@ -243,6 +344,14 @@ class Groups extends BaseResource
         return $this->mapToModels($response, RecordLeaderboardEntry::class);
     }
 
+    /**
+     * Fetches a group's hiscores for a specific metric.
+     *
+     * @param integer $id
+     * @param array $params
+     * @return HiscoreEntry[] Array of HiscoreEntry models
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-hiscores
+     */
     public function getHiscores(int $id, array $params = []): array
     {
         if (empty($id)) {
@@ -260,6 +369,14 @@ class Groups extends BaseResource
         return $this->mapToModels($response, HiscoreEntry::class);
     }
 
+    /**
+     * Fetches a group's latest name changes.
+     *
+     * @param integer $id
+     * @param array $params
+     * @return NameChange[] Array of NameChange models
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-name-changes
+     */
     public function getNameChanges(int $id, array $params = []): array
     {
         if (empty($id)) {
@@ -273,6 +390,13 @@ class Groups extends BaseResource
         return $this->mapToModels($response, NameChange::class);
     }
 
+    /**
+     * Fetches a group's general statistics.
+     *
+     * @param integer $id
+     * @return Statistics
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-statistics
+     */
     public function getStatistics(int $id): Statistics
     {
         if (empty($id)) {
@@ -284,6 +408,13 @@ class Groups extends BaseResource
         return new Statistics($response);
     }
 
+    /**
+     * Fetches a group's activity.
+     *
+     * @param integer $id
+     * @return Activity[] Array of Activity models
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-activity
+     */
     public function getActivity(int $id): array
     {
         if (empty($id)) {
@@ -295,6 +426,13 @@ class Groups extends BaseResource
         return $this->mapToModels($response, Activity::class);
     }
 
+    /**
+     * Fetches the group's members in CSV format.
+     *
+     * @param integer $id
+     * @return string
+     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-members-csv
+     */
     public function getMembersCSV(int $id): string
     {
         if (empty($id)) {
