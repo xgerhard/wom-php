@@ -1,10 +1,11 @@
 <?php
 
-namespace WOM\Models\Player;
+namespace WOM\Models\Group;
 
 use WOM\Models\BaseModel;
+use WOM\Models\Player\Player;
 
-class PlayerArchiveWithPlayer extends BaseModel
+class HiscoreEntry extends BaseModel
 {
     protected array $casts = [
         'player' => Player::class

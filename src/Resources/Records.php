@@ -2,7 +2,7 @@
 
 namespace WOM\Resources;
 
-use WOM\Models\Record\RecordLeaderboardEntry;
+use WOM\Models\Record\LeaderboardEntry;
 
 class Records extends BaseResource
 {
@@ -20,6 +20,6 @@ class Records extends BaseResource
             'query' => $params
         ]);
 
-        return $this->mapToModels($response, RecordLeaderboardEntry::class);
+        return $this->mapToModels($response, LeaderboardEntry::class);
     }
 }

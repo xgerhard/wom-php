@@ -3,13 +3,12 @@
 namespace WOM\Models\Group;
 
 use WOM\Models\BaseModel;
-use WOM\Models\Group\GroupMembership;
 
-class GroupDetails extends BaseModel
+class Details extends BaseModel
 {
     protected array $casts = [
         'memberships' => [
-            'type' => GroupMembership::class,
+            'type' => Membership::class,
             'many' => true
         ]
     ];

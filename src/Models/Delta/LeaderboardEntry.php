@@ -1,11 +1,11 @@
 <?php
 
-namespace WOM\Models\Group;
+namespace WOM\Models\Delta;
 
 use WOM\Models\BaseModel;
 use WOM\Models\Player\Player;
 
-class GroupHiscoreEntry extends BaseModel
+class LeaderboardEntry extends BaseModel
 {
     protected array $casts = [
         'player' => Player::class

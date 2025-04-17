@@ -4,7 +4,7 @@ namespace WOM\Models\Player;
 
 use WOM\Models\BaseModel;
 
-class PlayerGains extends BaseModel
+class Gains extends BaseModel
 {
     protected array $casts = [
         'skills' => [

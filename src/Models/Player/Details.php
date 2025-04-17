@@ -4,7 +4,7 @@ namespace WOM\Models\Player;
 
 use WOM\Models\BaseModel;
 
-class PlayerDetails extends BaseModel
+class Details extends BaseModel
 {
     protected array $casts = [
         'latestSnapshot' => Snapshot::class

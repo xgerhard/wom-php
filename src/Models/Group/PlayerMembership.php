@@ -3,11 +3,11 @@
 namespace WOM\Models\Group;
 
 use WOM\Models\BaseModel;
-use WOM\Models\Player\Player;
+use WOM\Models\Group\Group;
 
-class GroupActivity extends BaseModel
+class PlayerMembership extends BaseModel
 {
     protected array $casts = [
-        'player' => Player::class
+        'group' => Group::class
     ];
 }

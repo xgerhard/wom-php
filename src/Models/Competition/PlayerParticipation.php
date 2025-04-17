@@ -1,11 +1,10 @@
 <?php
 
-namespace WOM\Models\Player;
+namespace WOM\Models\Competition;
 
 use WOM\Models\BaseModel;
-use WOM\Models\Competition\Competition;
 
-class PlayerCompetitionStanding extends BaseModel
+class PlayerParticipation extends BaseModel
 {
     protected array $casts = [
         'competition' => Competition::class

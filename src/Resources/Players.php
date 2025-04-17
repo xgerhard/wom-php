@@ -2,19 +2,19 @@
 
 namespace WOM\Resources;
 
+use WOM\Models\Competition\PlayerParticipation;
+use WOM\Models\Group\PlayerMembership;
+use WOM\Models\NameChange\NameChange;
 use WOM\Models\Player\Achievement;
 use WOM\Models\Player\AchievementProgress;
+use WOM\Models\Player\Archive;
+use WOM\Models\Player\Details;
+use WOM\Models\Player\Gains;
 use WOM\Models\Player\Player;
-use WOM\Models\Player\PlayerArchiveWithPlayer;
-use WOM\Models\Player\PlayerCompetitionStanding;
-use WOM\Models\Player\PlayerDetails;
-use WOM\Models\Player\PlayerGains;
-use WOM\Models\Player\PlayerMembership;
-use WOM\Models\Player\PlayerParticipation;
+use WOM\Models\Player\PlayerStanding;
 use WOM\Models\Player\Record;
 use WOM\Models\Player\Snapshot;
 use WOM\Models\Player\TimelineDatapoint;
-use WOM\Models\NameChange\NameChange;
 
 class Players extends BaseResource
 {
@@ -31,7 +31,7 @@ class Players extends BaseResource
         return $this->mapToModels($response, Player::class);
     }
 
-    public function update(string $username): PlayerDetails
+    public function update(string $username): Details
     {
         if (empty($username)) {
             throw new \InvalidArgumentException('Username is required.');
@@ -39,7 +39,7 @@ class Players extends BaseResource
 
         $response = $this->request('POST', 'players/' . urlencode($username));
 
-        return new PlayerDetails($response);
+        return new Details($response);
     }
 
     public function assertType(string $username): Player
@@ -53,7 +53,7 @@ class Players extends BaseResource
         return new Player($response);
     }
 
-    public function get(string $username): PlayerDetails
+    public function get(string $username): Details
     {
         if (empty($username)) {
             throw new \InvalidArgumentException('Username is required.');
@@ -61,10 +61,10 @@ class Players extends BaseResource
 
         $response = $this->request('GET', 'players/' . urlencode($username));
 
-        return new PlayerDetails($response);
+        return new Details($response);
     }
 
-    public function getById(int $id): PlayerDetails
+    public function getById(int $id): Details
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Player ID is required.');
@@ -72,7 +72,7 @@ class Players extends BaseResource
 
         $response = $this->request('GET', 'players/id/' . $id);
 
-        return new PlayerDetails($response);
+        return new Details($response);
     }
 
     public function getAchievements(string $username): array
@@ -123,7 +123,7 @@ class Players extends BaseResource
             'query' => $params
         ]);
 
-        return $this->mapToModels($response, PlayerCompetitionStanding::class);
+        return $this->mapToModels($response, PlayerStanding::class);
     }
 
     public function getGroupMemberships(string $username, array $params = []): array
@@ -139,7 +139,7 @@ class Players extends BaseResource
         return $this->mapToModels($response, PlayerMembership::class);
     }
 
-    public function getGains(string $username, array $params = []): PlayerGains
+    public function getGains(string $username, array $params = []): Gains
     {
         if (empty($username)) {
             throw new \InvalidArgumentException('Username is required.');
@@ -151,7 +151,7 @@ class Players extends BaseResource
             'query' => $params
         ]);
 
-        return new PlayerGains($response);
+        return new Gains($response);
     }
 
     public function getRecords(string $username, array $params = []): array
@@ -220,6 +220,6 @@ class Players extends BaseResource
 
         $response = $this->request('GET', 'players/' . urlencode($username) . '/archives');
 
-        return $this->mapToModels($response, PlayerArchiveWithPlayer::class);
+        return $this->mapToModels($response, Archive::class);
     }
 }

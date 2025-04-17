@@ -1,0 +1,72 @@
+<?php
+
+namespace WOM\Enums;
+
+class Boss extends BaseEnum
+{
+    public const ABYSSAL_SIRE = 'abyssal_sire';
+    public const ALCHEMICAL_HYDRA = 'alchemical_hydra';
+    public const AMOXLIATL = 'amoxliatl';
+    public const ARAXXOR = 'araxxor';
+    public const ARTIO = 'artio';
+    public const BARROWS_CHESTS = 'barrows_chests';
+    public const BRYOPHYTA = 'bryophyta';
+    public const CALLISTO = 'callisto';
+    public const CALVARION = 'calvarion';
+    public const CERBERUS = 'cerberus';
+    public const CHAMBERS_OF_XERIC = 'chambers_of_xeric';
+    public const CHAMBERS_OF_XERIC_CHALLENGE_MODE = 'chambers_of_xeric_challenge_mode';
+    public const CHAOS_ELEMENTAL = 'chaos_elemental';
+    public const CHAOS_FANATIC = 'chaos_fanatic';
+    public const COMMANDER_ZILYANA = 'commander_zilyana';
+    public const CORPOREAL_BEAST = 'corporeal_beast';
+    public const CRAZY_ARCHAEOLOGIST = 'crazy_archaeologist';
+    public const DAGANNOTH_PRIME = 'dagannoth_prime';
+    public const DAGANNOTH_REX = 'dagannoth_rex';
+    public const DAGANNOTH_SUPREME = 'dagannoth_supreme';
+    public const DERANGED_ARCHAEOLOGIST = 'deranged_archaeologist';
+    public const DUKE_SUCELLUS = 'duke_sucellus';
+    public const GENERAL_GRAARDOR = 'general_graardor';
+    public const GIANT_MOLE = 'giant_mole';
+    public const GROTESQUE_GUARDIANS = 'grotesque_guardians';
+    public const HESPORI = 'hespori';
+    public const KALPHITE_QUEEN = 'kalphite_queen';
+    public const KING_BLACK_DRAGON = 'king_black_dragon';
+    public const KRAKEN = 'kraken';
+    public const KREEARRA = 'kreearra';
+    public const KRIL_TSUTSAROTH = 'kril_tsutsaroth';
+    public const LUNAR_CHESTS = 'lunar_chests';
+    public const MIMIC = 'mimic';
+    public const NEX = 'nex';
+    public const NIGHTMARE = 'nightmare';
+    public const OBOR = 'obor';
+    public const PHANTOM_MUSPAH = 'phantom_muspah';
+    public const PHOSANIS_NIGHTMARE = 'phosanis_nightmare';
+    public const SARACHNIS = 'sarachnis';
+    public const SCORPIA = 'scorpia';
+    public const SCURRIUS = 'scurrius';
+    public const SKOTIZO = 'skotizo';
+    public const SOL_HEREDIT = 'sol_heredit';
+    public const SPINDEL = 'spindel';
+    public const TEMPOROSS = 'tempoross';
+    public const THE_GAUNTLET = 'the_gauntlet';
+    public const THE_CORRUPTED_GAUNTLET = 'the_corrupted_gauntlet';
+    public const THE_HUEYCOATL = 'the_hueycoatl';
+    public const THE_LEVIATHAN = 'the_leviathan';
+    public const THE_ROYAL_TITANS = 'the_royal_titans';
+    public const THE_WHISPERER = 'the_whisperer';
+    public const THEATRE_OF_BLOOD = 'theatre_of_blood';
+    public const THEATRE_OF_BLOOD_HARD_MODE = 'theatre_of_blood_hard_mode';
+    public const THERMONUCLEAR_SMOKE_DEVIL = 'thermonuclear_smoke_devil';
+    public const TOMBS_OF_AMASCUT = 'tombs_of_amascut';
+    public const TOMBS_OF_AMASCUT_EXPERT = 'tombs_of_amascut_expert';
+    public const TZKAL_ZUK = 'tzkal_zuk';
+    public const TZTOK_JAD = 'tztok_jad';
+    public const VARDORVIS = 'vardorvis';
+    public const VENENATIS = 'venenatis';
+    public const VETION = 'vetion';
+    public const VORKATH = 'vorkath';
+    public const WINTERTODT = 'wintertodt';
+    public const ZALCANO = 'zalcano';
+    public const ZULRAH = 'zulrah';
+}

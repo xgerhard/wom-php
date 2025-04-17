@@ -2,7 +2,7 @@
 
 namespace WOM\Resources;
 
-use WOM\Models\Delta\DeltaLeaderboardEntry;
+use WOM\Models\Delta\LeaderboardEntry;
 
 class Deltas extends BaseResource
 {
@@ -20,6 +20,6 @@ class Deltas extends BaseResource
             'query' => $params
         ]);
 
-        return $this->mapToModels($response, DeltaLeaderboardEntry::class);
+        return $this->mapToModels($response, LeaderboardEntry::class);
     }
 }

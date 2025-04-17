@@ -5,10 +5,10 @@ namespace WOM\Resources;
 use WOM\Models\Competition\Competition;
 use WOM\Models\Delta\DeltaLeaderboardEntry;
 use WOM\Models\Group\Group;
-use WOM\Models\Group\GroupActivity;
-use WOM\Models\Group\GroupDetails;
-use WOM\Models\Group\GroupHiscoreEntry;
-use WOM\Models\Group\GroupStatistics;
+use WOM\Models\Group\Activity;
+use WOM\Models\Group\Details;
+use WOM\Models\Group\HiscoreEntry;
+use WOM\Models\Group\Statistics;
 use WOM\Models\NameChange\NameChange;
 use WOM\Models\Player\Achievement;
 use WOM\Models\Record\RecordLeaderboardEntry;
@@ -25,7 +25,7 @@ class Groups extends BaseResource
         return $this->mapToModels($response, Group::class);
     }
 
-    public function get(int $id): GroupDetails
+    public function get(int $id): Details
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Group ID is required.');
@@ -33,10 +33,10 @@ class Groups extends BaseResource
 
         $response = $this->request('GET', 'groups/' . $id);
 
-        return new GroupDetails($response);
+        return new Details($response);
     }
 
-    public function create(array $params = []): GroupDetails
+    public function create(array $params = []): Details
     {
         if (!isset($params['name'])) {
             throw new \InvalidArgumentException('The "name" parameter is required.');
@@ -50,10 +50,10 @@ class Groups extends BaseResource
             'json' => $params
         ]);
     
-        return new GroupDetails($response);
+        return new Details($response);
     }
 
-    public function edit(int $id, array $params = []): GroupDetails
+    public function edit(int $id, array $params = []): Details
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Group ID is required.');
@@ -67,7 +67,7 @@ class Groups extends BaseResource
             'json' => $params
         ]);
     
-        return new GroupDetails($response);
+        return new Details($response);
     }
 
     public function delete(int $id, string $verificationCode)
@@ -257,7 +257,7 @@ class Groups extends BaseResource
             'query' => $params
         ]);
 
-        return $this->mapToModels($response, GroupHiscoreEntry::class);
+        return $this->mapToModels($response, HiscoreEntry::class);
     }
 
     public function getNameChanges(int $id, array $params = []): array
@@ -273,7 +273,7 @@ class Groups extends BaseResource
         return $this->mapToModels($response, NameChange::class);
     }
 
-    public function getStatistics(int $id): GroupStatistics
+    public function getStatistics(int $id): Statistics
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Group ID is required.');
@@ -281,7 +281,7 @@ class Groups extends BaseResource
 
         $response = $this->request('GET', 'groups/' . $id . '/statistics');
 
-        return new GroupStatistics($response);
+        return new Statistics($response);
     }
 
     public function getActivity(int $id): array
@@ -292,7 +292,7 @@ class Groups extends BaseResource
 
         $response = $this->request('GET', 'groups/' . $id . '/activity');
 
-        return $this->mapToModels($response, GroupActivity::class);
+        return $this->mapToModels($response, Activity::class);
     }
 
     public function getMembersCSV(int $id): string
