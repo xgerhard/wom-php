@@ -11,6 +11,11 @@ class Competition extends BaseModel
     use HasMetric;
 
     protected array $casts = [
-        'group' => Group::class
+        'group' => Group::class,
+        'competition' => Competition::class,
+        'participations' => [
+            'type' => PlayerParticipation::class,
+            'many' => true
+        ]
     ];
 }
