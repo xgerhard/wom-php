@@ -54,14 +54,15 @@ abstract class BaseResource
             }
 
             $response = $e->getResponse();
-            $x = [
-                'error' => $e->getMessage(),
-                'status' => $response ? $response->getStatusCode() : null,
-                'body' => $response ? (string) $response->getBody() : null,
-            ];
-            echo '<pre>';
-            print_r($x);
-            die;
+            if (!$response) {
+                $errorMessage = 'No response received from WiseOldMan API.';
+            } else {
+                $isJson = str_contains($response->getHeaderLine('Content-Type'), 'application/json');
+                $responseBody = $isJson ? json_decode((string) $response->getBody()) : (string) $response->getBody();
+                $errorMessage = isset($responseBody->message) ? $responseBody->message : 'Unknown error received from WiseOldMan API';
+                $errorMessage .= ' [Status code: '. $response->getStatusCode() .']';
+            }
+            throw new \Exception($errorMessage);
         }
     }
 }

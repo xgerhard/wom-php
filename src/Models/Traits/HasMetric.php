@@ -6,7 +6,7 @@ use WOM\Enums\Metric;
 
 trait HasMetric
 {
-    public function metricLabel(): string
+    public function formatMetric(): string
     {
         return Metric::label($this->metric);
     }

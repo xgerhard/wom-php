@@ -2,38 +2,43 @@
 
 require('vendor/autoload.php');
 
-$client = (new WOM\Client())
-    ->setApiKey('--API-KEY-HERE--')
-    ->setUserAgent('--USER-AGENT-HERE--');
+try
+{
+    $client = (new WOM\Client())
+        ->setApiKey('--API-KEY-HERE--')
+        ->setUserAgent('--USER-AGENT-HERE--');
 
-$player = $client->players->get('zezima');
+    $player = $client->players->get('zezima');
 
-echo $player->displayName;
+    echo '<h1>'. $player->displayName .'</h1>';
 
-echo '<hr>';
-foreach ($player->latestSnapshot->data->skills as $skill) {
-    if ($skill->isRanked()) {
-        echo $skill->metricLabel() .': '. $skill->level .' ['. $skill->formattedExperience() .'] (#'. $skill->formattedRank() .')<br/>';
+    echo '<h3>Skills:</h3><hr>';
+    foreach ($player->latestSnapshot->data->skills as $skill) {
+        if ($skill->isRanked()) {
+            echo $skill->formatMetric() .': '. $skill->level .' ['. $skill->formatExperience() .'] (#'. $skill->formatRank() .')<br/>';
+        }
     }
-}
-
-echo '<hr>';
-foreach ($player->latestSnapshot->data->bosses as $boss) {
-    if ($boss->isRanked()) {
-        echo $boss->metricLabel() .': '. $boss->kills .' (#'. $boss->formattedRank() .')<br/>';
+    
+    echo '<h3>Bosses:</h3><hr>';
+    foreach ($player->latestSnapshot->data->bosses as $boss) {
+        if ($boss->isRanked()) {
+            echo $boss->formatMetric() .': '. $boss->kills .' (#'. $boss->formatRank() .')<br/>';
+        }
     }
-}
-
-echo '<hr>';
-foreach ($player->latestSnapshot->data->activities as $activity) {
-    if ($activity->isRanked()) {
-        echo $activity->metricLabel() .': '. $activity->score .' (#'. $activity->formattedRank() .')<br/>';
+    
+    echo '<h3>Activities:</h3><hr>';
+    foreach ($player->latestSnapshot->data->activities as $activity) {
+        if ($activity->isRanked()) {
+            echo $activity->formatMetric() .': '. $activity->score .' (#'. $activity->formatRank() .')<br/>';
+        }
     }
-}
-
-echo '<hr>';
-foreach ($player->latestSnapshot->data->computed as $computed) {
-    if ($computed->isRanked()) {
-        echo $computed->metricLabel() .': '. $computed->formattedValue() .' (#'. $computed->formattedRank() .')<br/>';
+    
+    echo '<h3>Computed metrics:</h3><hr>';
+    foreach ($player->latestSnapshot->data->computed as $computed) {
+        if ($computed->isRanked()) {
+            echo $computed->formatMetric() .': '. $computed->formatValue() .' (#'. $computed->formatRank() .')<br/>';
+        }
     }
+} catch (Exception $e) {
+    echo 'Error: '. $e->getMessage();
 }

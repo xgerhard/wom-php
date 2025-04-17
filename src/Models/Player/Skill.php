@@ -15,9 +15,14 @@ class Skill extends BaseModel
         'player' => Player::class
     ];
 
-    public function formattedExperience(): string
+    public function hasExperience(): bool
     {
-        if (!$this->isRanked()) {
+        return isset($this->experience) && $this->experience !== -1;
+    }
+
+    public function formatExperience(): string
+    {
+        if (!$this->hasExperience()) {
             return '-';
         }
 

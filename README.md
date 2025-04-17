@@ -29,9 +29,9 @@ $level = $player->latestSnapshot->data->skills->overall->level;
 ```
 Models also include helpful formatting methods for display:
 ```php
-echo $boss->metricLabel() // Chambers Of Xeric
-echo $boss->formattedRank() // 13.37k
-echo $skill->formattedExperience() // 13.03m
+echo $boss->formatMetric(); // Chambers Of Xeric
+echo $boss->formatRank(); // 13.37k
+echo $skill->formatExperience(); // 13.03m
 ```
 More helper methods will be added in future releases — including support for custom formatting.
 

@@ -14,7 +14,7 @@ class Metric extends BaseModel
         'player' => Player::class
     ];
 
-    public function formattedValue(): string
+    public function formatValue(): string
     {
         return round($this->value);
     }

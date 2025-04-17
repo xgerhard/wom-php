@@ -9,7 +9,7 @@ trait HasRank
         return isset($this->rank) && $this->rank !== -1;
     }
 
-    public function formattedRank(): string
+    public function formatRank(): string
     {
         if (!$this->isRanked()) {
             return '-';
