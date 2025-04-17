@@ -60,6 +60,10 @@ abstract class BaseModel
 
     protected function castValue($value, $cast)
     {
+        if ($value === null) {
+            return null;
+        }
+
         if (is_string($cast) && is_subclass_of($cast, BaseModel::class)) {
             return new $cast($value);
         }

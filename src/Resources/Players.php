@@ -222,23 +222,4 @@ class Players extends BaseResource
 
         return $this->mapToModels($response, PlayerArchiveWithPlayer::class);
     }
-
-    private function validateTimeParams(array $params): void
-    {
-        $hasPeriod = isset($params['period']);
-        $hasStart = isset($params['startDate']);
-        $hasEnd = isset($params['endDate']);
-    
-        if (!$hasPeriod && !($hasStart && $hasEnd)) {
-            throw new \InvalidArgumentException('You must provide either "period" or both "startDate" and "endDate".');
-        }
-    
-        if ($hasPeriod && ($hasStart || $hasEnd)) {
-            throw new \InvalidArgumentException('Use either "period" or "startDate" and "endDate", not both.');
-        }
-    
-        if ($hasStart xor $hasEnd) {
-            throw new \InvalidArgumentException('You must provide both "startDate" and "endDate" together.');
-        }
-    }
 }

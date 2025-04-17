@@ -5,7 +5,13 @@ namespace WOM\Resources;
 use WOM\Models\Competition\Competition;
 use WOM\Models\Delta\DeltaLeaderboardEntry;
 use WOM\Models\Group\Group;
+use WOM\Models\Group\GroupActivity;
 use WOM\Models\Group\GroupDetails;
+use WOM\Models\Group\GroupHiscoreEntry;
+use WOM\Models\Group\GroupStatistics;
+use WOM\Models\NameChange\NameChange;
+use WOM\Models\Player\Achievement;
+use WOM\Models\Record\RecordLeaderboardEntry;
 use WOM\Enums\Group\Role;
 
 class Groups extends BaseResource
@@ -203,22 +209,100 @@ class Groups extends BaseResource
         return $this->mapToModels($response, DeltaLeaderboardEntry::class);
     }
 
-    private function validateTimeParams(array $params): void
+    public function getAchievements(int $id, array $params = []): array
     {
-        $hasPeriod = isset($params['period']);
-        $hasStart = isset($params['startDate']);
-        $hasEnd = isset($params['endDate']);
-    
-        if (!$hasPeriod && !($hasStart && $hasEnd)) {
-            throw new \InvalidArgumentException('You must provide either "period" or both "startDate" and "endDate".');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Group ID is required.');
         }
-    
-        if ($hasPeriod && ($hasStart || $hasEnd)) {
-            throw new \InvalidArgumentException('Use either "period" or "startDate" and "endDate", not both.');
+
+        $response = $this->request('GET', 'groups/' . $id . '/achievements', [
+            'query' => $params
+        ]);
+
+        return $this->mapToModels($response, Achievement::class);
+    }
+
+    public function getRecords(int $id, array $params = []): array
+    {
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Group ID is required.');
         }
-    
-        if ($hasStart xor $hasEnd) {
-            throw new \InvalidArgumentException('You must provide both "startDate" and "endDate" together.');
+
+        if (!isset($params['period'])) {
+            throw new \InvalidArgumentException('The "period" parameter is required.');
         }
+
+        if (!isset($params['metric'])) {
+            throw new \InvalidArgumentException('The "metric" parameter is required.');
+        }
+
+        $response = $this->request('GET', 'groups/' . $id . '/records', [
+            'query' => $params
+        ]);
+
+        return $this->mapToModels($response, RecordLeaderboardEntry::class);
+    }
+
+    public function getHiscores(int $id, array $params = []): array
+    {
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Group ID is required.');
+        }
+
+        if (!isset($params['metric'])) {
+            throw new \InvalidArgumentException('The "metric" parameter is required.');
+        }
+
+        $response = $this->request('GET', 'groups/' . $id . '/hiscores', [
+            'query' => $params
+        ]);
+
+        return $this->mapToModels($response, GroupHiscoreEntry::class);
+    }
+
+    public function getNameChanges(int $id, array $params = []): array
+    {
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Group ID is required.');
+        }
+
+        $response = $this->request('GET', 'groups/' . $id . '/name-changes', [
+            'query' => $params
+        ]);
+
+        return $this->mapToModels($response, NameChange::class);
+    }
+
+    public function getStatistics(int $id): GroupStatistics
+    {
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Group ID is required.');
+        }
+
+        $response = $this->request('GET', 'groups/' . $id . '/statistics');
+
+        return new GroupStatistics($response);
+    }
+
+    public function getActivity(int $id): array
+    {
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Group ID is required.');
+        }
+
+        $response = $this->request('GET', 'groups/' . $id . '/activity');
+
+        return $this->mapToModels($response, GroupActivity::class);
+    }
+
+    public function getMembersCSV(int $id): string
+    {
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Group ID is required.');
+        }
+
+        $response = $this->request('GET', 'groups/' . $id . '/csv');
+
+        return $response;
     }
 }

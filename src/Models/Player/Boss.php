@@ -9,4 +9,8 @@ use WOM\Models\Traits\HasMetric;
 class Boss extends BaseModel
 {
     use HasRank, HasMetric;
+
+    protected array $casts = [
+        'player' => Player::class
+    ];
 }

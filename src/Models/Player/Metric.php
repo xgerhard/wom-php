@@ -10,6 +10,10 @@ class Metric extends BaseModel
 {
     use HasRank, HasMetric;
 
+    protected array $casts = [
+        'player' => Player::class
+    ];
+
     public function formattedValue(): string
     {
         return round($this->value);
