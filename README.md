@@ -27,7 +27,7 @@ See [`docs/examples.md`](docs/examples.md) for usage examples.
 | Endpoint        | Status         |
 |----------------|----------------|
 | Players         | ✅ Implemented |
-| Groups          | ❌ Not yet     |
+| Groups          | ✅ Implemented |
 | Competitions    | ❌ Not yet     |
 | Records         | ✅ Implemented |
 | Deltas          | ✅ Implemented |
