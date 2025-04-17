@@ -1,10 +1,13 @@
 # wom-php
 
 **wom-php** is a PHP wrapper for the [Wise Old Man API](https://docs.wiseoldman.net/).  
-Wise Old Man is an open source Old School RuneScape player progress tracker: [https://wiseoldman.net](https://wiseoldman.net).
+Wise Old Man is an open source Old School RuneScape player progress tracker: [wiseoldman.net](https://wiseoldman.net).
 
 ## Work in Progress
-⚠️ This package is still in early development (pre-1.0).
+⚠️ This package is still in development, but is stable and ready to use.
+
+Found a bug or want to request a feature? [Open an issue](https://github.com/xgerhard/wom-php/issues).
+
 
 ## Usage
 ```
@@ -16,7 +19,21 @@ use WOM\Client;
 
 $client = new Client();
 $player = $client->players->get('zezima');
+
+echo $player->displayName; // Zezima
 ```
+
+All model properties are directly accessible via object-style access:
+```php
+$level = $player->latestSnapshot->data->skills->overall->level;
+```
+Models also include helpful formatting methods for display:
+```php
+echo $boss->metricLabel() // Chambers Of Xeric
+echo $boss->formattedRank() // 13.37k
+echo $skill->formattedExperience() // 13.03m
+```
+More helper methods will be added in future releases — including support for custom formatting.
 
 ## Documentation & Examples
 
@@ -28,7 +45,7 @@ See [`docs/examples.md`](docs/examples.md) for usage examples.
 |----------------|----------------|
 | Players         | ✅ Implemented |
 | Groups          | ✅ Implemented |
-| Competitions    | ❌ Not yet     |
+| Competitions    | ✅ Implemented |
 | Records         | ✅ Implemented |
 | Deltas          | ✅ Implemented |
 | Name Changes    | ✅ Implemented |

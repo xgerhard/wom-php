@@ -104,7 +104,7 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param string $verificationCode
-     * @return void
+     * @return mixed
      * @see https://docs.wiseoldman.net/groups-api/group-endpoints#delete-group
      */
     public function delete(int $id, string $verificationCode)
@@ -129,7 +129,7 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param array $params
-     * @return void
+     * @return mixed
      * @see https://docs.wiseoldman.net/groups-api/group-endpoints#add-members
      */
     public function addMembers(int $id, array $params = [])
@@ -158,7 +158,7 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param array $params
-     * @return void
+     * @return mixed
      * @see https://docs.wiseoldman.net/groups-api/group-endpoints#remove-members
      */
     public function removeMembers(int $id, array $params = [])
@@ -187,7 +187,7 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param array $params
-     * @return void
+     * @return mixed
      * @see https://docs.wiseoldman.net/groups-api/group-endpoints#change-member-role
      */
     public function changeRole(int $id, array $params = [])
@@ -224,7 +224,7 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param string $verificationCode
-     * @return void
+     * @return mixed
      * @see https://docs.wiseoldman.net/groups-api/group-endpoints#update-all-outdated-members
      */
     public function updateAll(int $id, string $verificationCode)

@@ -11,7 +11,6 @@ use WOM\Models\Player\Archive;
 use WOM\Models\Player\Details;
 use WOM\Models\Player\Gains;
 use WOM\Models\Player\Player;
-use WOM\Models\Player\PlayerStanding;
 use WOM\Models\Player\Record;
 use WOM\Models\Player\Snapshot;
 use WOM\Models\Player\TimelineDatapoint;
@@ -171,7 +170,7 @@ class Players extends BaseResource
      *
      * @param string $username
      * @param array $params
-     * @return PlayerStanding[] Array of PlayerStanding models
+     * @return PlayerParticipation[] Array of PlayerParticipation models
      * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-competition-standings
      */
     public function getCompetitionStandings(string $username, array $params = []): array
@@ -188,7 +187,7 @@ class Players extends BaseResource
             'query' => $params
         ]);
 
-        return $this->mapToModels($response, PlayerStanding::class);
+        return $this->mapToModels($response, PlayerParticipation::class);
     }
 
     /**

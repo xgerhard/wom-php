@@ -3,7 +3,6 @@
 namespace WOM\Models\Group;
 
 use WOM\Models\BaseModel;
-use WOM\Models\Group\Group;
 
 class PlayerMembership extends BaseModel
 {

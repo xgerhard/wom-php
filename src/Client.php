@@ -27,6 +27,7 @@ class Client
         $map = [
             'players' => Resources\Players::class,
             'groups' => Resources\Groups::class,
+            'competitions' => Resources\Competitions::class,
             'records' => Resources\Records::class,
             'deltas' => Resources\Deltas::class,
             'namechanges' => Resources\NameChanges::class,
