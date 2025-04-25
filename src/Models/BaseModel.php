@@ -19,13 +19,7 @@ abstract class BaseModel
 
     public function __set(string $name, $value): void
     {
-        if (isset($this->casts[$name])) {
-            $value = $this->castValue($value, $this->casts[$name]);
-        } elseif (is_object($value)) {
-            $value = $this->castObjectProperties($value);
-        }
-    
-        $this->properties->{$name} = $value;
+        $this->properties->{$name} = $this->resolvePropertyValue($name, $value);
     }
 
     public function __isset(string $name): bool
@@ -37,25 +31,26 @@ abstract class BaseModel
     {
         $this->properties = new \stdClass();
 
+        if (!$this->isIterableLike($data)) {
+            return;
+        }
+
         foreach ($data as $key => $value) {
             $this->__set($key, $value);
         }
     }
 
-    protected function castObjectProperties(object $object): object
+    protected function resolvePropertyValue(string $key, $value)
     {
-        $result = [];
-        foreach ($object as $key => $value) {
-            if (isset($this->casts[$key])) {
-                $casted = $this->castValue($value, $this->casts[$key]);
-                $result[$key] = $casted;
-            } elseif (is_object($value)) {
-                $result[$key] = $this->castObjectProperties($value);
-            } else {
-                $result[$key] = $value;
-            }
+        if (isset($this->casts[$key])) {
+            return $this->castValue($value, $this->casts[$key]);
         }
-        return (object) $result;
+
+        if (is_object($value)) {
+            return $this->castObjectProperties($value);
+        }
+
+        return $value;
     }
 
     protected function castValue($value, $cast)
@@ -67,24 +62,48 @@ abstract class BaseModel
         if (is_string($cast) && is_subclass_of($cast, BaseModel::class)) {
             return new $cast($value);
         }
-    
+
         if (
             is_array($cast) &&
             isset($cast['type']) &&
             is_subclass_of($cast['type'], BaseModel::class)
         ) {
             $type = $cast['type'];
-            if (!empty($cast['many']) && (is_object($value) || is_array($value))) {
-                $result = [];
-                foreach ($value as $key => $item) {
-                    $result[$key] = new $type($item);
-                }
-                return (object) $result;
+
+            if (!empty($cast['many']) && $this->isIterableLike($value)) {
+                return $this->castManyToModel($value, $type);
             }
-    
+
             return new $type($value);
         }
 
         return $value;
+    }
+
+    protected function castObjectProperties(object $object): object
+    {
+        $result = [];
+
+        foreach ($object as $key => $value) {
+            $result[$key] = $this->resolvePropertyValue($key, $value);
+        }
+
+        return (object) $result;
+    }
+
+    protected function castManyToModel($items, string $type): object
+    {
+        $result = [];
+
+        foreach ($items as $key => $item) {
+            $result[$key] = new $type($item);
+        }
+
+        return (object) $result;
+    }
+
+    protected function isIterableLike($value): bool
+    {
+        return is_array($value) || is_object($value);
     }
 }
