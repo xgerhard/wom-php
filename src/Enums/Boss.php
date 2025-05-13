@@ -67,6 +67,7 @@ class Boss extends BaseEnum
     public const VETION = 'vetion';
     public const VORKATH = 'vorkath';
     public const WINTERTODT = 'wintertodt';
+    public const YAMA = 'yama';
     public const ZALCANO = 'zalcano';
     public const ZULRAH = 'zulrah';
 }
