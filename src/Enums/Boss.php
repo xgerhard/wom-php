@@ -25,6 +25,7 @@ class Boss extends BaseEnum
     public const DAGANNOTH_REX = 'dagannoth_rex';
     public const DAGANNOTH_SUPREME = 'dagannoth_supreme';
     public const DERANGED_ARCHAEOLOGIST = 'deranged_archaeologist';
+    public const DOOM_OF_MOKHAIOTL = 'doom_of_mokhaiotl';
     public const DUKE_SUCELLUS = 'duke_sucellus';
     public const GENERAL_GRAARDOR = 'general_graardor';
     public const GIANT_MOLE = 'giant_mole';
