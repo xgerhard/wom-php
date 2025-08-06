@@ -50,7 +50,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('POST', 'players/' . urlencode($username));
+        $response = $this->request('POST', 'players/' . rawurlencode($username));
 
         return new Details($response);
     }
@@ -68,7 +68,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('POST', 'players/' . urlencode($username) . '/assert-type');
+        $response = $this->request('POST', 'players/' . rawurlencode($username) . '/assert-type');
 
         return new Player($response);
     }
@@ -86,7 +86,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('GET', 'players/' . urlencode($username));
+        $response = $this->request('GET', 'players/' . rawurlencode($username));
 
         return new Details($response);
     }
@@ -122,7 +122,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/achievements');
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/achievements');
 
         return $this->mapToModels($response, Achievement::class);
     }
@@ -140,7 +140,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/achievements/progress');
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/achievements/progress');
 
         return $this->mapToModels($response, AchievementProgress::class);
     }
@@ -159,7 +159,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/competitions', [
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/competitions', [
             'query' => $params
         ]);
         return $this->mapToModels($response, PlayerParticipation::class);
@@ -183,7 +183,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Parameter status is required.');
         }
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/competitions/standings', [
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/competitions/standings', [
             'query' => $params
         ]);
 
@@ -204,7 +204,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/groups', [
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/groups', [
             'query' => $params
         ]);
 
@@ -227,7 +227,7 @@ class Players extends BaseResource
     
         $this->validateTimeParams($params);
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/gained', [
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/gained', [
             'query' => $params
         ]);
 
@@ -248,7 +248,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/records', [
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/records', [
             'query' => $params
         ]);
 
@@ -271,7 +271,7 @@ class Players extends BaseResource
 
         $this->validateTimeParams($params);
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/snapshots', [
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/snapshots', [
             'query' => $params
         ]);
 
@@ -298,7 +298,7 @@ class Players extends BaseResource
 
         $this->validateTimeParams($params);
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/snapshots/timeline', [
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/snapshots/timeline', [
             'query' => $params
         ]);
 
@@ -318,7 +318,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/names');
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/names');
 
         return $this->mapToModels($response, NameChange::class);
     }
@@ -336,7 +336,7 @@ class Players extends BaseResource
             throw new \InvalidArgumentException('Username is required.');
         }
 
-        $response = $this->request('GET', 'players/' . urlencode($username) . '/archives');
+        $response = $this->request('GET', 'players/' . rawurlencode($username) . '/archives');
 
         return $this->mapToModels($response, Archive::class);
     }
