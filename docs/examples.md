@@ -10,6 +10,7 @@ Fetches a player's details and prints ranked skills, bosses and activities with 
 
 Group management:
 - [Create group](../examples/Groups/create-group.php)
+- [Delete group](../examples/Groups/delete-group.php)
 - [Add members](../examples/Groups/add-members.php)
 - [Remove members](../examples/Groups/remove-members.php)
 - [Update all members](../examples/Groups/update-all-members.php)
