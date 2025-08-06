@@ -14,7 +14,7 @@ class Competitions extends BaseResource
      *
      * @param array $params
      * @return Competition[] Array of Competition models
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#search-competitions
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#search-competitions
      */
     public function search(array $params = []): array
     {
@@ -30,7 +30,7 @@ class Competitions extends BaseResource
      *
      * @param integer $id
      * @return Details
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#get-competition-details
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#get-competition-details
      */
     public function get(int $id): Details
     {
@@ -48,7 +48,7 @@ class Competitions extends BaseResource
      *
      * @param integer $id
      * @return string
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#get-competition-details-csv
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#get-competition-details-csv
      */
     public function getDetailsCSV(int $id): string
     {
@@ -66,7 +66,7 @@ class Competitions extends BaseResource
      *
      * @param array $params
      * @return Top5ProgressResult[] Array of Top5ProgressResult models
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#get-top-participants-history
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#get-top-participants-history
      */
     public function getTopParticipantsHistory(int $id, string $metric = ''): array
     {
@@ -92,7 +92,7 @@ class Competitions extends BaseResource
      *
      * @param array $params
      * @return Competition
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#create-competition
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#create-competition
      */
     public function create(array $params = []): Competition
     {
@@ -130,7 +130,7 @@ class Competitions extends BaseResource
      * @param integer $id
      * @param array $params
      * @return Competition
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#edit-competition
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#edit-competition
      */
     public function edit(int $id, array $params = []): Competition
     {
@@ -155,7 +155,7 @@ class Competitions extends BaseResource
      * @param integer $id
      * @param string $verificationCode
      * @return mixed
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#delete-competition
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#delete-competition
      */
     public function delete(int $id, string $verificationCode)
     {
@@ -180,7 +180,7 @@ class Competitions extends BaseResource
      * @param integer $id
      * @param array $params
      * @return mixed
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#add-participants
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#add-participants
      */
     public function addParticipants(int $id, array $params = [])
     {
@@ -209,7 +209,7 @@ class Competitions extends BaseResource
      * @param integer $id
      * @param array $params
      * @return mixed
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#remove-participants
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#remove-participants
      */
     public function removeParticipants(int $id, array $params = [])
     {
@@ -238,7 +238,7 @@ class Competitions extends BaseResource
      * @param integer $id
      * @param array $params
      * @return mixed
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#add-teams
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#add-teams
      */
     public function addTeams(int $id, array $params = [])
     {
@@ -267,7 +267,7 @@ class Competitions extends BaseResource
      * @param integer $id
      * @param array $params
      * @return mixed
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#remove-teams
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#remove-teams
      */
     public function removeTeams(int $id, array $params = [])
     {
@@ -296,7 +296,7 @@ class Competitions extends BaseResource
      * @param integer $id
      * @param array $params
      * @return mixed
-     * @see https://docs.wiseoldman.net/competitions-api/competition-endpoints#update-all-outdated-participants
+     * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#update-all-outdated-participants
      */
     public function updateAllParticipants(int $id, string $verificationCode)
     {

@@ -11,7 +11,7 @@ class NameChanges extends BaseResource
      *
      * @param array $params
      * @return NameChange[] Array of NameChange models
-     * @see https://docs.wiseoldman.net/names-api/name-endpoints#search-name-changes
+     * @see https://docs.wiseoldman.net/api/name-changes/name-endpoints#search-name-changes
      */
     public function search(array $params = []): array
     {
@@ -28,7 +28,7 @@ class NameChanges extends BaseResource
      * @param string $oldName
      * @param string $newName
      * @return NameChange
-     * @see https://docs.wiseoldman.net/names-api/name-endpoints#submit-name-change
+     * @see https://docs.wiseoldman.net/api/name-changes/name-endpoints#submit-name-change
      */
     public function submit(string $oldName, string $newName): NameChange
     {

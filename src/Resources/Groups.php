@@ -21,7 +21,7 @@ class Groups extends BaseResource
      *
      * @param array $params
      * @return Group[] Array of Group models
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#search-groups
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#search-groups
      */
     public function search(array $params = []): array
     {
@@ -37,7 +37,7 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @return Details
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-details
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-details
      */
     public function get(int $id): Details
     {
@@ -55,7 +55,7 @@ class Groups extends BaseResource
      *
      * @param array $params
      * @return Details
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#create-group
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#create-group
      */
     public function create(array $params = []): Details
     {
@@ -80,7 +80,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return Details
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#edit-group
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#edit-group
      */
     public function edit(int $id, array $params = []): Details
     {
@@ -105,7 +105,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param string $verificationCode
      * @return mixed
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#delete-group
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#delete-group
      */
     public function delete(int $id, string $verificationCode)
     {
@@ -130,7 +130,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return mixed
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#add-members
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#add-members
      */
     public function addMembers(int $id, array $params = [])
     {
@@ -159,7 +159,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return mixed
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#remove-members
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#remove-members
      */
     public function removeMembers(int $id, array $params = [])
     {
@@ -188,7 +188,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return mixed
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#change-member-role
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#change-member-role
      */
     public function changeRole(int $id, array $params = [])
     {
@@ -225,7 +225,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param string $verificationCode
      * @return mixed
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#update-all-outdated-members
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#update-all-outdated-members
      */
     public function updateAll(int $id, string $verificationCode)
     {
@@ -252,7 +252,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return Competition[] Array of Competition models
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-competitions
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-competitions
      */
     public function getCompetitions(int $id, array $params = []): array
     {
@@ -273,7 +273,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return DeltaLeaderboardEntry[] Array of LeaderboardEntry models
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-gains
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-gains
      */
     public function getGains(int $id, array $params = []): array
     {
@@ -300,7 +300,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return Achievement[] Array of Achievement models
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-achievements
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-achievements
      */
     public function getAchievements(int $id, array $params = []): array
     {
@@ -321,7 +321,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return RecordLeaderboardEntry[] Array of LeaderboardEntry models
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-records
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-records
      */
     public function getRecords(int $id, array $params = []): array
     {
@@ -350,7 +350,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return HiscoreEntry[] Array of HiscoreEntry models
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-hiscores
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-hiscores
      */
     public function getHiscores(int $id, array $params = []): array
     {
@@ -375,7 +375,7 @@ class Groups extends BaseResource
      * @param integer $id
      * @param array $params
      * @return NameChange[] Array of NameChange models
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-name-changes
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-name-changes
      */
     public function getNameChanges(int $id, array $params = []): array
     {
@@ -395,7 +395,7 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @return Statistics
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-statistics
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-statistics
      */
     public function getStatistics(int $id): Statistics
     {
@@ -413,7 +413,7 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @return Activity[] Array of Activity models
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-activity
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-activity
      */
     public function getActivity(int $id): array
     {
@@ -431,7 +431,7 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @return string
-     * @see https://docs.wiseoldman.net/groups-api/group-endpoints#get-group-members-csv
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-members-csv
      */
     public function getMembersCSV(int $id): string
     {

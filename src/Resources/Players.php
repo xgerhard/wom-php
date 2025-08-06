@@ -22,7 +22,7 @@ class Players extends BaseResource
      *
      * @param array $params
      * @return Player[] Array of Player models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#search-players
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#search-players
      */
     public function search(array $params = []): array
     {
@@ -42,7 +42,7 @@ class Players extends BaseResource
      *
      * @param string $username
      * @return Details
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#update-a-player
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#update-a-player
      */
     public function update(string $username): Details
     {
@@ -60,7 +60,7 @@ class Players extends BaseResource
      *
      * @param string $username
      * @return Player
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#assert-player-type
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#assert-player-type
      */
     public function assertType(string $username): Player
     {
@@ -78,7 +78,7 @@ class Players extends BaseResource
      *
      * @param string $username
      * @return Details
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-details
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-details
      */
     public function get(string $username): Details
     {
@@ -96,7 +96,7 @@ class Players extends BaseResource
      *
      * @param integer $id
      * @return Details
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-details-by-id
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-details-by-id
      */
     public function getById(int $id): Details
     {
@@ -114,7 +114,7 @@ class Players extends BaseResource
      *
      * @param string $username
      * @return Achievement[] Array of Achievement models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-achievements
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-achievements
      */
     public function getAchievements(string $username): array
     {
@@ -132,7 +132,7 @@ class Players extends BaseResource
      *
      * @param string $username
      * @return AchievementProgress[] Array of AchievementProgress models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-achievement-progress
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-achievement-progress
      */
     public function getAchievementProgress(string $username): array
     {
@@ -151,7 +151,7 @@ class Players extends BaseResource
      * @param string $username
      * @param array $params
      * @return PlayerParticipation[] Array of PlayerParticipation models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-competition-participations
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-competition-participations
      */
     public function getCompetitionParticipations(string $username, array $params = []): array
     {
@@ -171,7 +171,7 @@ class Players extends BaseResource
      * @param string $username
      * @param array $params
      * @return PlayerParticipation[] Array of PlayerParticipation models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-competition-standings
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-competition-standings
      */
     public function getCompetitionStandings(string $username, array $params = []): array
     {
@@ -196,7 +196,7 @@ class Players extends BaseResource
      * @param string $username
      * @param array $params
      * @return PlayerMembership[] Array of PlayerMembership models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-group-memberships
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-group-memberships
      */
     public function getGroupMemberships(string $username, array $params = []): array
     {
@@ -217,7 +217,7 @@ class Players extends BaseResource
      * @param string $username
      * @param array $params
      * @return Gains
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-gains
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-gains
      */
     public function getGains(string $username, array $params = []): Gains
     {
@@ -240,7 +240,7 @@ class Players extends BaseResource
      * @param string $username
      * @param array $params
      * @return Record[] Array of Record models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-records
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-records
      */
     public function getRecords(string $username, array $params = []): array
     {
@@ -261,7 +261,7 @@ class Players extends BaseResource
      * @param string $username
      * @param array $params
      * @return Snapshot[] Array of Snapshot models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-snapshots
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-snapshots
      */
     public function getSnapshots(string $username, array $params = []): array
     {
@@ -284,7 +284,7 @@ class Players extends BaseResource
      * @param string $username
      * @param array $params
      * @return TimelineDatapoint[] Array of TimelineDatapoint models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-snapshots-timeline
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-snapshots-timeline
      */
     public function getSnapshotsTimeline(string $username, array $params = []): array
     {
@@ -310,7 +310,7 @@ class Players extends BaseResource
      *
      * @param string $username
      * @return NameChange[] Array of NameChange models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-name-changes
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-name-changes
      */
     public function getNameChanges(string $username): array
     {
@@ -328,7 +328,7 @@ class Players extends BaseResource
      *
      * @param string $username
      * @return Archive[] Array of Archive models
-     * @see https://docs.wiseoldman.net/players-api/player-endpoints#get-player-archives
+     * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-archives
      */
     public function getArchives(string $username): array
     {

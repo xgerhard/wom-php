@@ -11,7 +11,7 @@ class Deltas extends BaseResource
      *
      * @param array $params
      * @return LeaderboardEntry[] Array of LeaderboardEntry models
-     * @see https://docs.wiseoldman.net/deltas-api/delta-endpoints#get-global-delta-leaderboards
+     * @see https://docs.wiseoldman.net/api/deltas/delta-endpoints#get-global-delta-leaderboards
      */
     public function getGlobalLeaderboards(array $params = []): array
     {

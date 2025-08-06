@@ -12,7 +12,7 @@ class Efficiency extends BaseResource
      *
      * @param string $metric
      * @return Player[] Array of Player models
-     * @see https://docs.wiseoldman.net/efficiency-api/efficiency-endpoints#get-efficiency-rates
+     * @see https://docs.wiseoldman.net/api/efficiency/efficiency-endpoints#get-efficiency-rates
      */
     public function getGlobalLeaderboards(string $metric): array
     {

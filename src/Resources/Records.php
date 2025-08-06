@@ -11,7 +11,7 @@ class Records extends BaseResource
      *
      * @param array $params
      * @return LeaderboardEntry[] Array of LeaderboardEntry models
-     * @see https://docs.wiseoldman.net/records-api/record-endpoints#get-global-record-leaderboards
+     * @see https://docs.wiseoldman.net/api/records/record-endpoints#get-global-record-leaderboards
      */
     public function getGlobalLeaderboards(array $params = []): array
     {
