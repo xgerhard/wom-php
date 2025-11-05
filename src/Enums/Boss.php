@@ -46,6 +46,7 @@ class Boss extends BaseEnum
     public const SARACHNIS = 'sarachnis';
     public const SCORPIA = 'scorpia';
     public const SCURRIUS = 'scurrius';
+    public const SHELLBANE_GRYPHON = 'shellbane_gryphon';
     public const SKOTIZO = 'skotizo';
     public const SOL_HEREDIT = 'sol_heredit';
     public const SPINDEL = 'spindel';
