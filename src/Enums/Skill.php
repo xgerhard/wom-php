@@ -28,4 +28,5 @@ class Skill extends BaseEnum
     public const RUNECRAFTING = 'runecrafting';
     public const HUNTER = 'hunter';
     public const CONSTRUCTION = 'construction';
+    public const SAILING = 'sailing';
 }
