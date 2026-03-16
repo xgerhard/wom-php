@@ -10,6 +10,7 @@ class Boss extends BaseEnum
     public const ARAXXOR = 'araxxor';
     public const ARTIO = 'artio';
     public const BARROWS_CHESTS = 'barrows_chests';
+    public const BRUTUS = 'brutus';
     public const BRYOPHYTA = 'bryophyta';
     public const CALLISTO = 'callisto';
     public const CALVARION = 'calvarion';
