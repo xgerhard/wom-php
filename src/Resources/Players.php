@@ -22,18 +22,16 @@ class Players extends BaseResource
     /**
      * Search for players by partial username.
      * 
-     * @param string $username
-     * @param array $params Optional: limit (int), offset (int).
+     * @param array $params Required: username (string). Optional: limit (int), offset (int).
      * @return Player[] Array of Player models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#search-players
      */
-    public function search(string $username, array $params = []): array
+    public function search(array $params = []): array
     {
-        if (empty($username)) {
+        if (empty($params['username'])) {
             throw new \InvalidArgumentException('Search requires a username.');
         }
 
-        $params['username'] = $username;
         $response = $this->request('GET', 'players/search', [
             'query' => $params
         ]);

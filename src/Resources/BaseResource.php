@@ -14,6 +14,28 @@ abstract class BaseResource
         $this->client = $client;
     }
 
+    public function paginate(string $method, array $params = [], int $limit = 50, bool $lazy = false, ?int $maxPages = null): array|\Generator
+    {
+        $fetch = function () use ($method, $params, $limit, $maxPages): \Generator {
+            $offset = 0;
+            $page = 0;
+            do {
+                $results = $this->$method(array_merge($params, ['limit' => $limit, 'offset' => $offset]));
+                foreach ($results as $item) {
+                    yield $item;
+                }
+                $offset += $limit;
+                $page++;
+            } while (count($results) === $limit && ($maxPages === null || $page < $maxPages));
+        };
+
+        if ($lazy) {
+            return $fetch();
+        }
+
+        return iterator_to_array($fetch(), false);
+    }
+
     protected function mapToModels(array $items, string $modelClass): array
     {
         return array_map(fn($item) => new $modelClass($item), $items);

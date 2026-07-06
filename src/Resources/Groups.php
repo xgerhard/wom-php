@@ -23,14 +23,12 @@ class Groups extends BaseResource
     /**
      * Searches for groups that match a partial name.
      *
-     * @param string $name
-     * @param array $params Optional parameters: limit (int), offset (int).
+     * @param array $params Optional: name (string), limit (int), offset (int).
      * @return Group[] Array of Group models
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#search-groups
      */
-    public function search(string $name = '', array $params = []): array
+    public function search(array $params = []): array
     {
-        $params['name'] = $name;
         $response = $this->request('GET', 'groups', [
             'query' => $params
         ]);

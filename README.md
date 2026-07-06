@@ -33,23 +33,31 @@ echo $boss->formatMetric(); // Chambers Of Xeric
 echo $boss->formatRank(); // 13.37k
 echo $skill->formatExperience(); // 13.03m
 ```
-More helper methods will be added in future releases — including support for custom formatting.
+More helper methods will be added in future releases, including support for custom formatting.
+
+## Pagination
+Endpoints that support pagination can be iterated automatically using `paginate()`:
+```php
+// Fetch all results as a flat array (2 pages max, 50 per page)
+$groups = $client->groups->paginate('search', ['name' => 'iron'], maxPages: 2);
+
+// Lazy — fetch page by page as you iterate (memory efficient for large datasets)
+foreach ($client->groups->paginate('search', ['name' => 'iron'], lazy: true) as $group) {
+    echo $group->name;
+}
+```
+
+| Parameter  | Default | Description |
+|------------|---------|-------------|
+| `$method`  | —       | The resource method to paginate |
+| `$params`  | `[]`    | Query parameters passed to the method |
+| `$limit`   | `50`    | Results per page (API max is 50) |
+| `$lazy`    | `false` | Return a generator instead of a flat array |
+| `$maxPages`| `null`  | Maximum number of pages to fetch (null = all) |
 
 ## Documentation & Examples
 
 See [`docs/examples.md`](docs/examples.md) for usage examples.
-
-## Supported Endpoints
-
-| Endpoint        | Status         |
-|----------------|----------------|
-| Players         | ✅ Implemented |
-| Groups          | ✅ Implemented |
-| Competitions    | ✅ Implemented |
-| Records         | ✅ Implemented |
-| Deltas          | ✅ Implemented |
-| Name Changes    | ✅ Implemented |
-| Efficiency      | ✅ Implemented |
 
 ## Contributing
 Feel free to explore, contribute, or play around with this wrapper.
@@ -99,7 +107,7 @@ composer install
 
 2. Then run the tests:
 ```
-php vendor/bin/phpunit
+php vendor/bin/phpunit --testdox
 ```
 
 Or run a specific test: `php vendor/bin/phpunit --filter testCanFetchPlayerDetails`
