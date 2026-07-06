@@ -41,7 +41,7 @@ Endpoints that support pagination can be iterated automatically using `paginate(
 // Fetch all results as a flat array (2 pages max, 50 per page)
 $groups = $client->groups->paginate('search', ['name' => 'iron'], maxPages: 2);
 
-// Lazy — fetch page by page as you iterate (memory efficient for large datasets)
+// Lazy - fetch page by page as you iterate (memory efficient)
 foreach ($client->groups->paginate('search', ['name' => 'iron'], lazy: true) as $group) {
     echo $group->name;
 }
