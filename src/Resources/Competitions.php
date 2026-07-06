@@ -3,6 +3,8 @@
 namespace WOM\Resources;
 
 use WOM\Models\Competition\Competition;
+use WOM\Models\Competition\CreateCompetitionResult;
+use WOM\Models\Competition\ParticipantsChangeResult;
 use WOM\Models\Competition\Top5ProgressResult;
 use WOM\Models\Competition\Details;
 use WOM\Models\Delta\LeaderboardEntry;
@@ -12,7 +14,7 @@ class Competitions extends BaseResource
     /**
      * Searches for competitions that match a title, type, metric and status filter.
      *
-     * @param array $params
+     * @param array $params Optional: title (string), type (CompetitionType), status (CompetitionStatus), metric (Metric), limit (int), offset (int).
      * @return Competition[] Array of Competition models
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#search-competitions
      */
@@ -29,16 +31,19 @@ class Competitions extends BaseResource
      * Fetches the competition's full details, including all the participants and their progress.
      *
      * @param integer $id
+     * @param array $params Optional: metric (Metric).
      * @return Details
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#get-competition-details
      */
-    public function get(int $id): Details
+    public function get(int $id, array $params = []): Details
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Competition ID is required.');
         }
 
-        $response = $this->request('GET', 'competitions/' . $id);
+        $response = $this->request('GET', 'competitions/' . $id, [
+            'query' => $params
+        ]);
 
         return new Details($response);
     }
@@ -47,16 +52,19 @@ class Competitions extends BaseResource
      * Fetches the competition's details in CSV format.
      *
      * @param integer $id
+     * @param array $params Optional: metric (Metric), teamName (string), table (Enums\Competition\CSVTableType).
      * @return string
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#get-competition-details-csv
      */
-    public function getDetailsCSV(int $id): string
+    public function getDetailsCSV(int $id, array $params = []): string
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Competition ID is required.');
         }
 
-        $response = $this->request('GET', 'competitions/' . $id .'/csv');
+        $response = $this->request('GET', 'competitions/' . $id . '/csv', [
+            'query' => $params
+        ]);
 
         return $response;
     }
@@ -64,23 +72,17 @@ class Competitions extends BaseResource
     /**
      * Fetches all the values (exp, kc, etc) in chronological order within the bounds of the competition, for the top 5 participants.
      *
-     * @param array $params
+     * @param array $params Optional: metric (Metric).
      * @return Top5ProgressResult[] Array of Top5ProgressResult models
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#get-top-participants-history
      */
-    public function getTopParticipantsHistory(int $id, string $metric = ''): array
+    public function getTopParticipantsHistory(int $id, array $params = []): array
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Competition ID is required.');
         }
 
-        $params = [];
-
-        if (!empty($metric)) {
-           $params['metric'] = $metric;
-        }
-
-        $response = $this->request('GET', 'competitions/'. $id .'/top-history', [
+        $response = $this->request('GET', 'competitions/' . $id . '/top-history', [
             'query' => $params
         ]);
 
@@ -90,11 +92,11 @@ class Competitions extends BaseResource
     /**
      * Creates a new competition
      *
-     * @param array $params
-     * @return Competition
+     * @param array $params Required: title (string), metric (Metric), startsAt (date), endsAt (date). Optional: groupId (int), groupVerificationCode (string), participants (string[]), teams (array).
+     * @return CreateCompetitionResult
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#create-competition
      */
-    public function create(array $params = []): Competition
+    public function create(array $params = []): CreateCompetitionResult
     {
         $hasGroupId = isset($params['groupId']);
         $hasParticipants = isset($params['participants']);
@@ -120,15 +122,15 @@ class Competitions extends BaseResource
         $response = $this->request('POST', 'competitions', [
             'json' => $params
         ]);
-    
-        return new Competition($response);
+
+        return new CreateCompetitionResult($response);
     }
 
     /**
      * Edits an existing competition.
      *
      * @param integer $id
-     * @param array $params
+     * @param array $params Required: verificationCode (string). Optional: title (string), metric (Metric), startsAt (date), endsAt (date), participants (string[]), teams (array).
      * @return Competition
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#edit-competition
      */
@@ -154,10 +156,10 @@ class Competitions extends BaseResource
      *
      * @param integer $id
      * @param string $verificationCode
-     * @return mixed
+     * @return string
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#delete-competition
      */
-    public function delete(int $id, string $verificationCode)
+    public function delete(int $id, string $verificationCode): string
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Competition ID is required.');
@@ -170,19 +172,19 @@ class Competitions extends BaseResource
         $response = $this->request('DELETE', 'competitions/' . $id, [
             'json' => ['verificationCode' => $verificationCode]
         ]);
-    
-        return $response;
+
+        return $response->message;
     }
 
     /**
      * Adds all (valid) given participants to a competition, ignoring duplicates.
      *
      * @param integer $id
-     * @param array $params
-     * @return mixed
+     * @param array $params Required: participants (array of usernames), verificationCode (string).
+     * @return ParticipantsChangeResult
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#add-participants
      */
-    public function addParticipants(int $id, array $params = [])
+    public function addParticipants(int $id, array $params = []): ParticipantsChangeResult
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Competition ID is required.');
@@ -196,22 +198,22 @@ class Competitions extends BaseResource
             throw new \InvalidArgumentException('The "verificationCode" parameter is required.');
         }
 
-        $response = $this->request('POST', 'competitions/' . $id . '/members' , [
+        $response = $this->request('POST', 'competitions/' . $id . '/members', [
             'json' => $params
         ]);
-    
-        return $response;
+
+        return new ParticipantsChangeResult($response);
     }
 
     /**
      * Remove all given usernames from a competition, ignoring usernames that aren't competing.
      *
      * @param integer $id
-     * @param array $params
-     * @return mixed
+     * @param array $params Required: participants (array of usernames), verificationCode (string).
+     * @return ParticipantsChangeResult
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#remove-participants
      */
-    public function removeParticipants(int $id, array $params = [])
+    public function removeParticipants(int $id, array $params = []): ParticipantsChangeResult
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Competition ID is required.');
@@ -225,22 +227,22 @@ class Competitions extends BaseResource
             throw new \InvalidArgumentException('The "verificationCode" parameter is required.');
         }
 
-        $response = $this->request('DELETE', 'competitions/' . $id . '/participants' , [
+        $response = $this->request('DELETE', 'competitions/' . $id . '/participants', [
             'json' => $params
         ]);
-    
-        return $response;
+
+        return new ParticipantsChangeResult($response);
     }
 
     /**
      * Adds all (valid) given teams to a team competition, ignoring duplicates.
      *
      * @param integer $id
-     * @param array $params
-     * @return mixed
+     * @param array $params Required: teams (array of {name (string), participants (array of usernames)}), verificationCode (string).
+     * @return ParticipantsChangeResult
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#add-teams
      */
-    public function addTeams(int $id, array $params = [])
+    public function addTeams(int $id, array $params = []): ParticipantsChangeResult
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Competition ID is required.');
@@ -254,22 +256,22 @@ class Competitions extends BaseResource
             throw new \InvalidArgumentException('The "verificationCode" parameter is required.');
         }
 
-        $response = $this->request('POST', 'competitions/' . $id . '/teams' , [
+        $response = $this->request('POST', 'competitions/' . $id . '/teams', [
             'json' => $params
         ]);
-    
-        return $response;
+
+        return new ParticipantsChangeResult($response);
     }
 
     /**
      * Remove all given usernames from a competition, ignoring usernames that aren't competing.
      *
      * @param integer $id
-     * @param array $params
-     * @return mixed
+     * @param array $params Required: teamNames (array of team names), verificationCode (string).
+     * @return ParticipantsChangeResult
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#remove-teams
      */
-    public function removeTeams(int $id, array $params = [])
+    public function removeTeams(int $id, array $params = []): ParticipantsChangeResult
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Competition ID is required.');
@@ -283,22 +285,22 @@ class Competitions extends BaseResource
             throw new \InvalidArgumentException('The "verificationCode" parameter is required.');
         }
 
-        $response = $this->request('DELETE', 'competitions/' . $id . '/teams' , [
+        $response = $this->request('DELETE', 'competitions/' . $id . '/teams', [
             'json' => $params
         ]);
-    
-        return $response;
+
+        return new ParticipantsChangeResult($response);
     }
 
     /**
      * Attempts to update any outdated competition participants.
      *
      * @param integer $id
-     * @param array $params
-     * @return mixed
+     * @param string $verificationCode
+     * @return string
      * @see https://docs.wiseoldman.net/api/competitions/competition-endpoints#update-all-outdated-participants
      */
-    public function updateAllParticipants(int $id, string $verificationCode)
+    public function updateAllParticipants(int $id, string $verificationCode): string
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Competition ID is required.');
@@ -308,12 +310,10 @@ class Competitions extends BaseResource
             throw new \InvalidArgumentException('VerificationCode is required.');
         }
 
-        $response = $this->request('POST', 'competitions/' . $id . '/update-all' , [
-            'json' => [
-                'verificationCode' => $verificationCode
-            ]
+        $response = $this->request('POST', 'competitions/' . $id . '/update-all', [
+            'json' => ['verificationCode' => $verificationCode]
         ]);
-    
-        return $response;
+
+        return $response->message;
     }
 }
