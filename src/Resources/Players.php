@@ -23,7 +23,7 @@ class Players extends BaseResource
      * Search for players by partial username.
      * 
      * @param string $username
-     * @param array $params Optional parameters: limit (int), offset (int).
+     * @param array $params Optional: limit (int), offset (int).
      * @return Player[] Array of Player models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#search-players
      */
@@ -153,7 +153,7 @@ class Players extends BaseResource
      * Fetches all of the player's competition participations.
      *
      * @param string $username
-     * @param array $params Optional parameters: status (Enums\Competition\Status).
+     * @param array $params Optional: status (Enums\Competition\Status).
      * @return PlayerParticipation[] Array of PlayerParticipation models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-competition-participations
      */
@@ -173,7 +173,7 @@ class Players extends BaseResource
      * Fetches all of the player's competition standings.
      *
      * @param string $username
-     * @param array $params Optional parameters: status (Enums\Competition\Status).
+     * @param array $params Required: status (Enums\Competition\Status).
      * @return PlayerStanding[] Array of PlayerStanding models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-competition-standings
      */
@@ -198,7 +198,7 @@ class Players extends BaseResource
      * Fetches all of the player's group memberships
      *
      * @param string $username
-     * @param array $params Optional parameters: limit (int), offset (int).
+     * @param array $params Optional: limit (int), offset (int).
      * @return PlayerMembership[] Array of PlayerMembership models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-group-memberships
      */
@@ -219,7 +219,7 @@ class Players extends BaseResource
      * Fetches all of the player's gains for a specific period or time range.
      *
      * @param string $username
-     * @param array $params period (Enums\Period) or startDate + endDate (date string).
+     * @param array $params Required: period (Enums\Period) or startDate + endDate (date string).
      * @return Gains
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-gains
      */
@@ -263,7 +263,7 @@ class Players extends BaseResource
      * Fetches all of the player's past snapshots.
      *
      * @param string $username
-     * @param array $params metric (Enums\Metric), Optional parameters: period (Enums\Period) or startDate + endDate (date string), limit (int), offset (int).
+     * @param array $params Optional: period (Enums\Period) or startDate + endDate (date string), limit (int), offset (int).
      * @return Snapshot[] Array of Snapshot models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-snapshots
      */
@@ -286,7 +286,7 @@ class Players extends BaseResource
      * Fetches all of the player's past snapshots (as a value/date timeseries array).
      *
      * @param string $username
-     * @param array $params metric (Enums\Metric), period (Enums\Period) or startDate + endDate (date string).
+     * @param array $params Required: metric (Enums\Metric). Optional: period (Enums\Period) or startDate + endDate (date string).
      * @return TimelineDatapoint[] Array of TimelineDatapoint models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-snapshots-timeline
      */
