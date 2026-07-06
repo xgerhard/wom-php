@@ -9,7 +9,7 @@ class Deltas extends BaseResource
     /**
      * Fetches the current top deltas leaderboard for a specific metric and period.
      *
-     * @param array $params
+     * @param array $params Required: period (Period), metric (Metric). Optional: playerType (PlayerType), playerBuild (PlayerBuild), country (Country).
      * @return LeaderboardEntry[] Array of LeaderboardEntry models
      * @see https://docs.wiseoldman.net/api/deltas/delta-endpoints#get-global-delta-leaderboards
      */

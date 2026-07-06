@@ -7,9 +7,9 @@ use WOM\Models\Record\LeaderboardEntry;
 class Records extends BaseResource
 {
     /**
-     * Undocumented function
+     * Fetches the current top records leaderboard for a specific metric and period.
      *
-     * @param array $params
+     * @param array $params Required: period (Period), metric (Metric). Optional: playerType (PlayerType), playerBuild (PlayerBuild), country (Country).
      * @return LeaderboardEntry[] Array of LeaderboardEntry models
      * @see https://docs.wiseoldman.net/api/records/record-endpoints#get-global-record-leaderboards
      */

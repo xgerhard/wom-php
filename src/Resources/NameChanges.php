@@ -9,7 +9,7 @@ class NameChanges extends BaseResource
     /**
      * Searches for name changes that match a name and/or status filter.
      *
-     * @param array $params
+     * @param array $params Optional: username (string), status (NameChangeStatus), limit (int), offset (int).
      * @return NameChange[] Array of NameChange models
      * @see https://docs.wiseoldman.net/api/name-changes/name-endpoints#search-name-changes
      */
