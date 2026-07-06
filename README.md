@@ -3,8 +3,7 @@
 **wom-php** is a PHP wrapper for the [Wise Old Man API](https://docs.wiseoldman.net/).  
 Wise Old Man is an open source Old School RuneScape player progress tracker: [wiseoldman.net](https://wiseoldman.net).
 
-## Work in Progress
-⚠️ This package is still in development, but is stable and ready to use.
+## Bugs / Feature requests
 
 Found a bug or want to request a feature? [Open an issue](https://github.com/xgerhard/wom-php/issues).
 
@@ -35,29 +34,19 @@ echo $skill->formatExperience(); // 13.03m
 ```
 More helper methods will be added in future releases, including support for custom formatting.
 
-## Pagination
-Endpoints that support pagination can be iterated automatically using `paginate()`:
-```php
-// Fetch all results as a flat array (2 pages max, 50 per page)
-$groups = $client->groups->paginate('search', ['name' => 'iron'], maxPages: 2);
+## Documentation
 
-// Lazy - fetch page by page as you iterate (memory efficient)
-foreach ($client->groups->paginate('search', ['name' => 'iron'], lazy: true) as $group) {
-    echo $group->name;
-}
-```
+See [`docs/index.md`](docs/index.md) for the full documentation.
 
-| Parameter  | Default | Description |
-|------------|---------|-------------|
-| `$method`  | —       | The resource method to paginate |
-| `$params`  | `[]`    | Query parameters passed to the method |
-| `$limit`   | `50`    | Results per page (API max is 50) |
-| `$lazy`    | `false` | Return a generator instead of a flat array |
-| `$maxPages`| `null`  | Maximum number of pages to fetch (null = all) |
-
-## Documentation & Examples
-
-See [`docs/examples.md`](docs/examples.md) for usage examples.
+| Resource | Description |
+|----------|-------------|
+| [Players](docs/players.md) | Search, track and fetch player data |
+| [Groups](docs/groups.md) | Manage and fetch group data |
+| [Competitions](docs/competitions.md) | Manage and fetch competition data |
+| [Deltas](docs/deltas.md) | Fetch delta leaderboards |
+| [Records](docs/records.md) | Fetch record leaderboards |
+| [Efficiency](docs/efficiency.md) | Fetch efficiency rates and leaderboards |
+| [Name Changes](docs/name-changes.md) | Search and submit name changes |
 
 ## Contributing
 Feel free to explore, contribute, or play around with this wrapper.
