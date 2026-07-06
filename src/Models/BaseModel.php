@@ -102,6 +102,23 @@ abstract class BaseModel
         return (object) $result;
     }
 
+    public function keys(int $depth = 1): array
+    {
+        if ($depth <= 1) {
+            return array_keys((array) $this->properties);
+        }
+
+        $result = [];
+
+        foreach ($this->properties as $key => $value) {
+            $result[$key] = $value instanceof BaseModel
+                ? $value->keys($depth - 1)
+                : $value;
+        }
+
+        return $result;
+    }
+
     protected function isIterableLike($value): bool
     {
         return is_array($value) || is_object($value);

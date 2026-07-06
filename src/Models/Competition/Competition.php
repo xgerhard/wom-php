@@ -5,12 +5,11 @@ namespace WOM\Models\Competition;
 use WOM\Models\BaseModel;
 use WOM\Models\Group\Group;
 use WOM\Models\Traits\HasMetric;
-use WOM\Enums\Metric;
 
 /**
  * @property int $id
  * @property string $title
- * @property Metric $metric
+ * @property string $metric
  * @property array $metrics
  * @property string $type
  * @property string $startsAt

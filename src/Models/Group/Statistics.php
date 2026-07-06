@@ -10,7 +10,7 @@ use WOM\Models\Player\Snapshot;
  * @property int $maxedCombatCount
  * @property int $maxedTotalCount
  * @property int $maxed200msCount
- * @property \WOM\Models\Player\Snapshot $averageStats
+ * @property Snapshot $averageStats
  * @property MetricLeaders $metricLeaders
  */
 class Statistics extends BaseModel

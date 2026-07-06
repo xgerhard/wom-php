@@ -3,19 +3,15 @@
 namespace WOM\Models\Player;
 
 use WOM\Models\BaseModel;
-use WOM\Enums\Player\Country;
-use WOM\Enums\Player\Build;
-use WOM\Enums\Player\Status;
-use WOM\Enums\Player\Type;
 
 /**
  * @property int $id
  * @property string $username
  * @property string $displayName
- * @property Type $type
- * @property Build $build
- * @property Country|null $country
- * @property Status $status
+ * @property string $type
+ * @property string $build
+ * @property string|null $country
+ * @property string $status
  * @property bool $patron
  * @property int $exp
  * @property float $ehp

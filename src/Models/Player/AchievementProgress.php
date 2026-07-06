@@ -3,11 +3,10 @@
 namespace WOM\Models\Player;
 
 use WOM\Models\BaseModel;
-use WOM\Enums\Metric;
 
 /**
  * @property string $name
- * @property Metric $metric
+ * @property string $metric
  * @property string $measure
  * @property int $threshold
  * @property int $playerId
