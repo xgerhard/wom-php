@@ -4,24 +4,15 @@ namespace WOM\Models\Player;
 
 use WOM\Models\BaseModel;
 
+/**
+ * @property int $playerId
+ * @property string $createdAt
+ * @property string|null $importedAt
+ * @property SnapshotData $data
+ */
 class Snapshot extends BaseModel
 {
     protected array $casts = [
-        'skills' => [
-            'type' => Skill::class,
-            'many' => true
-        ],
-        'bosses' => [
-            'type' => Boss::class,
-            'many' => true
-        ],
-        'activities' => [
-            'type' => Activity::class,
-            'many' => true
-        ],
-        'computed' => [
-            'type' => Metric::class,
-            'many' => true
-        ],
+        'data' => SnapshotData::class,
     ];
 }

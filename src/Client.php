@@ -7,6 +7,15 @@ use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Exception\RequestException;
 use WOM\Http\RateLimiter;
 
+/**
+ * @property Resources\Players $players
+ * @property Resources\Groups $groups
+ * @property Resources\Competitions $competitions
+ * @property Resources\Records $records
+ * @property Resources\Deltas $deltas
+ * @property Resources\NameChanges $namechanges
+ * @property Resources\Efficiency $efficiency
+ */
 class Client
 {
     protected GuzzleClient $client;

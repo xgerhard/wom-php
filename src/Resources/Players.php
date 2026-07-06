@@ -3,11 +3,13 @@
 namespace WOM\Resources;
 
 use WOM\Models\Competition\PlayerParticipation;
+use WOM\Models\Competition\PlayerStanding;
 use WOM\Models\Group\PlayerMembership;
 use WOM\Models\NameChange\NameChange;
 use WOM\Models\Player\Achievement;
 use WOM\Models\Player\AchievementProgress;
 use WOM\Models\Player\Archive;
+use WOM\Models\Player\AssertTypeResult;
 use WOM\Models\Player\Details;
 use WOM\Models\Player\Gains;
 use WOM\Models\Player\Player;
@@ -19,17 +21,19 @@ class Players extends BaseResource
 {
     /**
      * Search for players by partial username.
-     *
-     * @param array $params
+     * 
+     * @param string $username
+     * @param array $params Optional parameters: limit (int), offset (int).
      * @return Player[] Array of Player models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#search-players
      */
-    public function search(array $params = []): array
+    public function search(string $username, array $params = []): array
     {
-        if (!isset($params['username'])) {
+        if (empty($username)) {
             throw new \InvalidArgumentException('Search requires a username.');
         }
 
+        $params['username'] = $username;
         $response = $this->request('GET', 'players/search', [
             'query' => $params
         ]);
@@ -59,10 +63,10 @@ class Players extends BaseResource
      * Asserts a player's game mode type and updates it if incorrect. Returns the updated Player object and a flag indicating whether the type was changed.
      *
      * @param string $username
-     * @return Player
+     * @return AssertTypeResult
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#assert-player-type
      */
-    public function assertType(string $username): Player
+    public function assertType(string $username): AssertTypeResult
     {
         if (empty($username)) {
             throw new \InvalidArgumentException('Username is required.');
@@ -70,7 +74,7 @@ class Players extends BaseResource
 
         $response = $this->request('POST', 'players/' . rawurlencode($username) . '/assert-type');
 
-        return new Player($response);
+        return new AssertTypeResult($response);
     }
 
     /**
@@ -149,7 +153,7 @@ class Players extends BaseResource
      * Fetches all of the player's competition participations.
      *
      * @param string $username
-     * @param array $params
+     * @param array $params Optional parameters: status (Enums\Competition\Status).
      * @return PlayerParticipation[] Array of PlayerParticipation models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-competition-participations
      */
@@ -169,8 +173,8 @@ class Players extends BaseResource
      * Fetches all of the player's competition standings.
      *
      * @param string $username
-     * @param array $params
-     * @return PlayerParticipation[] Array of PlayerParticipation models
+     * @param array $params Optional parameters: status (Enums\Competition\Status).
+     * @return PlayerStanding[] Array of PlayerStanding models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-competition-standings
      */
     public function getCompetitionStandings(string $username, array $params = []): array
@@ -187,14 +191,14 @@ class Players extends BaseResource
             'query' => $params
         ]);
 
-        return $this->mapToModels($response, PlayerParticipation::class);
+        return $this->mapToModels($response, PlayerStanding::class);
     }
 
     /**
      * Fetches all of the player's group memberships
      *
      * @param string $username
-     * @param array $params
+     * @param array $params Optional parameters: limit (int), offset (int).
      * @return PlayerMembership[] Array of PlayerMembership models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-group-memberships
      */
@@ -215,7 +219,7 @@ class Players extends BaseResource
      * Fetches all of the player's gains for a specific period or time range.
      *
      * @param string $username
-     * @param array $params
+     * @param array $params period (Enums\Period) or startDate + endDate (date string).
      * @return Gains
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-gains
      */
@@ -238,7 +242,7 @@ class Players extends BaseResource
      * Fetches all of the player's records.
      *
      * @param string $username
-     * @param array $params
+     * @param array $params Optional parameters: period (Enums\Period), metric (Enums\Metric).
      * @return Record[] Array of Record models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-records
      */
@@ -259,7 +263,7 @@ class Players extends BaseResource
      * Fetches all of the player's past snapshots.
      *
      * @param string $username
-     * @param array $params
+     * @param array $params metric (Enums\Metric), Optional parameters: period (Enums\Period) or startDate + endDate (date string), limit (int), offset (int).
      * @return Snapshot[] Array of Snapshot models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-snapshots
      */
@@ -282,7 +286,7 @@ class Players extends BaseResource
      * Fetches all of the player's past snapshots (as a value/date timeseries array).
      *
      * @param string $username
-     * @param array $params
+     * @param array $params metric (Enums\Metric), period (Enums\Period) or startDate + endDate (date string).
      * @return TimelineDatapoint[] Array of TimelineDatapoint models
      * @see https://docs.wiseoldman.net/api/players/player-endpoints#get-player-snapshots-timeline
      */
