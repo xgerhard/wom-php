@@ -3,10 +3,14 @@
 namespace WOM\Resources;
 
 use WOM\Models\Competition\Competition;
-use WOM\Models\Delta\LeaderboardEntry as DeltaLeaderboardEntry;
+use WOM\Models\Group\GainsEntry as GroupGainsEntry;
 use WOM\Models\Group\Group;
 use WOM\Models\Group\Activity;
+use WOM\Models\Group\BulkGainsEntry;
+use WOM\Models\Group\BulkHiscoreEntry;
+use WOM\Models\Group\CreateGroupResult;
 use WOM\Models\Group\Details;
+use WOM\Models\Group\Membership;
 use WOM\Models\Group\HiscoreEntry;
 use WOM\Models\Group\Statistics;
 use WOM\Models\NameChange\NameChange;
@@ -19,12 +23,14 @@ class Groups extends BaseResource
     /**
      * Searches for groups that match a partial name.
      *
-     * @param array $params
+     * @param string $name
+     * @param array $params Optional parameters: limit (int), offset (int).
      * @return Group[] Array of Group models
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#search-groups
      */
-    public function search(array $params = []): array
+    public function search(string $name = '', array $params = []): array
     {
+        $params['name'] = $name;
         $response = $this->request('GET', 'groups', [
             'query' => $params
         ]);
@@ -53,16 +59,16 @@ class Groups extends BaseResource
     /**
      * Creates a new group.
      *
-     * @param array $params
-     * @return Details
+     * @param array $params Required: name (string), members (array of {username, role}). Optional: clanChat (string), description (string), homeworld (int).
+     * @return CreateGroupResult
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#create-group
      */
-    public function create(array $params = []): Details
+    public function create(array $params = []): CreateGroupResult
     {
         if (!isset($params['name'])) {
             throw new \InvalidArgumentException('The "name" parameter is required.');
         }
-    
+
         if (!isset($params['members']) || !is_array($params['members'])) {
             throw new \InvalidArgumentException('The "members" parameter is required and must be an array of members (each with "username" and "role").');
         }
@@ -70,15 +76,15 @@ class Groups extends BaseResource
         $response = $this->request('POST', 'groups', [
             'json' => $params
         ]);
-    
-        return new Details($response);
+
+        return new CreateGroupResult($response);
     }
 
     /**
      * Edit an existing group.
      *
      * @param integer $id
-     * @param array $params
+     * @param array $params Required: verificationCode (string). Optional: name (string), clanChat (string), description (string), homeworld (int), members (array of {username, role}), bannerImage (string, patron only), profileImage (string, patron only), socialLinks (array, patron only).
      * @return Details
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#edit-group
      */
@@ -104,10 +110,10 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param string $verificationCode
-     * @return mixed
+     * @return string
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#delete-group
      */
-    public function delete(int $id, string $verificationCode)
+    public function delete(int $id, string $verificationCode): string
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Group ID is required.');
@@ -120,8 +126,8 @@ class Groups extends BaseResource
         $response = $this->request('DELETE', 'groups/' . $id, [
             'json' => ['verificationCode' => $verificationCode]
         ]);
-    
-        return $response;
+
+        return $response->message;
     }
 
     /**
@@ -129,10 +135,10 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param array $params
-     * @return mixed
+     * @return string
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#add-members
      */
-    public function addMembers(int $id, array $params = [])
+    public function addMembers(int $id, array $params = []): string
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Group ID is required.');
@@ -146,11 +152,11 @@ class Groups extends BaseResource
             throw new \InvalidArgumentException('The "verificationCode" parameter is required.');
         }
 
-        $response = $this->request('POST', 'groups/' . $id . '/members' , [
+        $response = $this->request('POST', 'groups/' . $id . '/members', [
             'json' => $params
         ]);
-    
-        return $response;
+
+        return $response->message;
     }
 
     /**
@@ -158,10 +164,10 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param array $params
-     * @return mixed
+     * @return string
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#remove-members
      */
-    public function removeMembers(int $id, array $params = [])
+    public function removeMembers(int $id, array $params = []): string
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Group ID is required.');
@@ -175,11 +181,11 @@ class Groups extends BaseResource
             throw new \InvalidArgumentException('The "verificationCode" parameter is required.');
         }
 
-        $response = $this->request('DELETE', 'groups/' . $id . '/members' , [
+        $response = $this->request('DELETE', 'groups/' . $id . '/members', [
             'json' => $params
         ]);
-    
-        return $response;
+
+        return $response->message;
     }
 
     /**
@@ -187,10 +193,10 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param array $params
-     * @return mixed
+     * @return Membership
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#change-member-role
      */
-    public function changeRole(int $id, array $params = [])
+    public function changeRole(int $id, array $params = []): Membership
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Group ID is required.');
@@ -212,11 +218,11 @@ class Groups extends BaseResource
             throw new \InvalidArgumentException('The "verificationCode" parameter is required.');
         }
 
-        $response = $this->request('PUT', 'groups/' . $id . '/role' , [
+        $response = $this->request('PUT', 'groups/' . $id . '/role', [
             'json' => $params
         ]);
-    
-        return $response;
+
+        return new Membership($response);
     }
 
     /**
@@ -224,10 +230,10 @@ class Groups extends BaseResource
      *
      * @param integer $id
      * @param string $verificationCode
-     * @return mixed
+     * @return string
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#update-all-outdated-members
      */
-    public function updateAll(int $id, string $verificationCode)
+    public function updateAll(int $id, string $verificationCode): string
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Group ID is required.');
@@ -237,20 +243,20 @@ class Groups extends BaseResource
             throw new \InvalidArgumentException('VerificationCode is required.');
         }
 
-        $response = $this->request('POST', 'groups/' . $id . '/update-all' , [
+        $response = $this->request('POST', 'groups/' . $id . '/update-all', [
             'json' => [
                 'verificationCode' => $verificationCode
             ]
         ]);
 
-        return $response;
+        return $response->message;
     }
 
     /**
      * Fetches all of the group's competitions.
      *
      * @param integer $id
-     * @param array $params
+     * @param array $params Optional: limit (int), offset (int).
      * @return Competition[] Array of Competition models
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-competitions
      */
@@ -271,8 +277,8 @@ class Groups extends BaseResource
      * Fetches the top gains for a group's member list (filtered by metric and period/date range).
      *
      * @param integer $id
-     * @param array $params
-     * @return DeltaLeaderboardEntry[] Array of LeaderboardEntry models
+     * @param array $params Required: metric (Enums\Metric). Optional: period (Enums\Period) or startDate + endDate (date string).
+     * @return GroupGainsEntry[] Array of GainsEntry models
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-gains
      */
     public function getGains(int $id, array $params = []): array
@@ -291,14 +297,37 @@ class Groups extends BaseResource
             'query' => $params
         ]);
 
-        return $this->mapToModels($response, DeltaLeaderboardEntry::class);
+        return $this->mapToModels($response, GroupGainsEntry::class);
+    }
+
+    /**
+     * Fetches every metric's gains for a group's member list (filtered by period/date range).
+     *
+     * @param integer $id
+     * @param array $params Optional: period (Enums\Period) or startDate + endDate (date string).
+     * @return BulkGainsEntry[] Array of BulkGainsEntry models
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-bulk-gains
+     */
+    public function getBulkGains(int $id, array $params = []): array
+    {
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Group ID is required.');
+        }
+
+        $this->validateTimeParams($params);
+
+        $response = $this->request('GET', 'groups/' . $id . '/bulk-gained', [
+            'query' => $params
+        ]);
+
+        return $this->mapToModels($response, BulkGainsEntry::class);
     }
 
     /**
      * Fetches the group's latest achievements.
      *
      * @param integer $id
-     * @param array $params
+     * @param array $params Optional: limit (int), offset (int).
      * @return Achievement[] Array of Achievement models
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-achievements
      */
@@ -319,7 +348,7 @@ class Groups extends BaseResource
      * Fetches a group's record leaderboard for a specific metric and period.
      *
      * @param integer $id
-     * @param array $params
+     * @param array $params Required: period (Enums\Period), metric (Enums\Metric). Optional: limit (int), offset (int).
      * @return RecordLeaderboardEntry[] Array of LeaderboardEntry models
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-records
      */
@@ -348,7 +377,7 @@ class Groups extends BaseResource
      * Fetches a group's hiscores for a specific metric.
      *
      * @param integer $id
-     * @param array $params
+     * @param array $params Required: metric (Enums\Metric).
      * @return HiscoreEntry[] Array of HiscoreEntry models
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-hiscores
      */
@@ -370,10 +399,28 @@ class Groups extends BaseResource
     }
 
     /**
+     * Fetches every group member's stats in a single request.
+     *
+     * @param integer $id
+     * @return BulkHiscoreEntry[] Array of BulkHiscoreEntry models
+     * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-bulk-hiscores
+     */
+    public function getBulkHiscores(int $id): array
+    {
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Group ID is required.');
+        }
+
+        $response = $this->request('GET', 'groups/' . $id . '/bulk-hiscores');
+
+        return $this->mapToModels($response, BulkHiscoreEntry::class);
+    }
+
+    /**
      * Fetches a group's latest name changes.
      *
      * @param integer $id
-     * @param array $params
+     * @param array $params Optional: limit (int), offset (int).
      * @return NameChange[] Array of NameChange models
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-name-changes
      */
@@ -412,16 +459,19 @@ class Groups extends BaseResource
      * Fetches a group's activity.
      *
      * @param integer $id
+     * @param array $params Optional: limit (int), offset (int).
      * @return Activity[] Array of Activity models
      * @see https://docs.wiseoldman.net/api/groups/group-endpoints#get-group-activity
      */
-    public function getActivity(int $id): array
+    public function getActivity(int $id, array $params = []): array
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Group ID is required.');
         }
 
-        $response = $this->request('GET', 'groups/' . $id . '/activity');
+        $response = $this->request('GET', 'groups/' . $id . '/activity', [
+            'query' => $params
+        ]);
 
         return $this->mapToModels($response, Activity::class);
     }

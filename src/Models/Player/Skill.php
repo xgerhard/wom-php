@@ -7,6 +7,13 @@ use WOM\Models\Player\Player;
 use WOM\Models\Traits\HasRank;
 use WOM\Models\Traits\HasMetric;
 
+/**
+ * @property string $metric
+ * @property int $experience
+ * @property int $rank
+ * @property int $level
+ * @property Player|null $player
+ */
 class Skill extends BaseModel
 {
     use HasRank, HasMetric;

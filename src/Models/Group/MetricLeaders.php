@@ -9,6 +9,12 @@ use WOM\Models\Player\Metric;
 use WOM\Models\Player\Skill;
 use WOM\Models\Player\Snapshot;
 
+/**
+ * @property object $skills
+ * @property object $bosses
+ * @property object $activities
+ * @property object $computed
+ */
 class MetricLeaders extends BaseModel
 {
     protected array $casts = [

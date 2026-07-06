@@ -13,7 +13,11 @@ use WOM\Enums\Metric;
  * @property string $createdAt
  * @property int $accuracy
  * @property string $measure
+ * @property Player|null $player
  */
 class Achievement extends BaseModel
 {
+    protected array $casts = [
+        'player' => Player::class,
+    ];
 }

@@ -6,6 +6,12 @@ use WOM\Models\BaseModel;
 use WOM\Models\Traits\HasRank;
 use WOM\Models\Traits\HasMetric;
 
+/**
+ * @property string $metric
+ * @property int|float $value
+ * @property int $rank
+ * @property Player|null $player
+ */
 class Metric extends BaseModel
 {
     use HasRank, HasMetric;
